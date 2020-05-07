@@ -1,0 +1,266 @@
+/* --- GLOBAL STYLE --- */
+.app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  color: #1d1c1c;
+  text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+}
+button {
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  padding: 2px;
+  font-size: 17px;
+  color: #008055;;
+}
+h2 {
+  font-family: 'Dancing Script', cursive;
+  color: #d43a2f;
+  font-size: 25px;
+  padding: 2px;
+}
+.h3 {
+  width: 80%;
+  font-size: 20px;
+  text-align: center;
+  color: #d43a2f;
+  margin: 10px auto;
+}
+
+/* --- HEADER COMPONENT --- */
+.topContainer {
+  width: 100%;
+  max-height: 100px;
+  padding: 2px;
+  display: inline-flex;
+}
+
+
+/* --- NAVBAR COMPONENT --- */
+.navBar {
+  height: 30px;
+  width: 50%;
+  display: inline-block;
+  text-align: left;
+}
+.navItem {
+  display: inline-block;
+  padding: 5px 2px;
+  font-size: 17px;
+  color: #008080;
+}
+
+.navItem :hover, .navItem :focus {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+/* --- USERBAR COMPONENT --- */
+.userBar {
+  width: 45%;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+  padding: 2px;
+}
+.avatarImg {
+  height: 90%;
+  display: inline-block;
+  text-align: center;
+  padding: auto 2px;
+}
+.userName {
+  font-family: 'Dancing Script', cursive;
+  color: #d43a2f;
+  font-size: 20px;
+  padding: 2px;
+}
+
+
+/* --- LOGIN COMPONENT --- */
+.logIn {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+.leftImg {
+  height: auto;
+  width: 30%;
+  display: block;
+  padding: 2px;
+  margin-left: 10%;
+  float: left;
+}
+.title{
+  display:block;
+  padding: 5px;
+  font-size: 30px;
+  color: #d43a2f;
+}
+.logInform {
+  display:block;
+  height: auto;
+  width: 50%;
+  padding: 10px;
+  margin: auto;
+}
+.infoText{
+  font-size: 16px;
+  padding: 2px;
+  margin: auto;
+}
+#userDropdown {
+  display:block;
+  height: auto;
+  width: 80%;
+  padding: 10px;
+  margin: auto;
+}
+
+/* --- HOME COMPONENT --- */
+.mainContainer {
+  width: 95%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+}
+.questionListChanger {
+  width: 70%;
+  margin: 10px auto 10px 10px;
+  color: #d43a2f;
+  font-size: 18px;
+}
+.listContainer {
+  width: 100%;
+  margin: 10px;
+  font-size: 20px;
+}
+
+/* ---NEWQUESTION COMPONENT --- */
+.newQuestion {
+  width: 95%;
+  margin: 10px auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+input.newQuestion {
+  width: 45%;
+  margin: 10px auto;
+  border: 3px double #008055;
+  font-size: 20px;
+}
+
+/* ---QUESTION COMPONENT --- */
+.questionPage {
+  width: 95%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+}
+.questionBox {
+  width: 95%;
+  margin: 10px auto;  
+}
+.creatorWrapper {
+  width: 70%;
+  height: 50px;
+  font-size: 18px;
+  text-align: left;
+  color: #d43a2f;
+  display: inline-block;
+}
+img.creatorWrapper{
+  height: 100%;
+  width: auto;
+  margin: 5px auto;
+}
+.optionBox {
+  width: 95%;
+  margin: 10px auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.optionWrapper{
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  margin: 10px auto;
+}
+input.optionWrapper {
+  width: 95%;
+  margin: 10px auto;
+  border: 3px double #008055;
+  font-size: 20px;
+}
+span.optionWrapper {
+  font-size: 22px;
+  color: #d43a2f;
+}
+
+/* ---LEADERBOARD COMPONENT --- */
+.leaderboard {
+  width: 95%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+}
+.card {
+  display: flex;
+  width: 90%;
+  height: 200px;
+  margin: 10px auto;
+  border: 3px double #008055;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  font-size: 20px;
+}
+.user {
+  width: 30%;
+  height: 180px;
+  font-size: 25px;
+  text-align: center;
+  color: #d43a2f;
+}
+img.user{
+  height: 150px;
+  width: auto;
+  margin: 10px auto;
+}
+.scoreContainer{
+  width: 60%;
+  height: 180px;
+}
+.item, .score{
+  width: 95%;
+  border: 2px solid #9ca8a8;
+  margin: auto;
+}
+span.item{
+  font-size: 22px;
+  color: #008055;
+}
+span.score{
+  font-size: 22px;
+  color: #d43a2f;
+}
+
+/* --- FOOTER COMPONENT --- */
+.pageFooter {
+  width: 100%;
+  height: 80px;
+  bottom: 0px;
+  padding-top: 5px;
+  justify-content: center;
+  align-content: center;
+}
+.signiture {
+  font-family: 'Dancing Script', cursive;
+  font-size: 17px;
+  margin: 10px auto;
+}
+
