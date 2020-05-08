@@ -36,14 +36,15 @@ const usersR = (state, action) => {
       }
     };
     case actionTypes.UPDATE_USER_ANSWERS:
-      const { userId, questionId, option} = action.payload;
-      
+      const uId = action.payload.authedUser;
+      const option = action.payload.answer;
+
       return {
         ...state,
         users: {
           ...state[users],
-          [userId]:{
-            ...state[users][userId],
+          [uId]:{
+            ...state[users][uId],
             answers: {
               questionId: option
             }
@@ -51,15 +52,15 @@ const usersR = (state, action) => {
         }
       };
     case actionTypes.UPDATE_USER_SCORE:
-      const userId = action.payload;
-      const newScore = state.users[userId].score + 1;
+      const userid = action.payload;
+      const newScore = state.users[userid].score + 1;
 
       return {
         ...state,
         users: {
           ...state[users],
-          [userId]:{
-          ...state[users][userId],
+          [userid]:{
+          ...state[users][userid],
           score: newScore
           }
         }

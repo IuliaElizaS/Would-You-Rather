@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom'
-import {createStore, applyMiddleware} from 'redux'
-import thunk from 'redux-thunk'
-import { Provider } from 'react-redux'
-import {getData} from './utils/helper'
-import rootReducer from './reducers'
-import middleware from './middleware'
+import {BrowserRouter} from 'react-router-dom';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import {getData} from './utils/helper';
+import rootReducer from './reducers/rootReducer';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import './Style/App.css';

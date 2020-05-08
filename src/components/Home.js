@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import {Redirect } from 'react-router-dom';
 import {setCurrentQuestion} from '../actions/questionA';
 import Header from './Header';
 import Footer from './Footer';
@@ -9,31 +9,36 @@ import '../style/App.css';
 class Home extends React.Component {
 
   state = {
-    selectedOption: 'unansweredQuestions',    
+    selectedOption: 'unansweredQuestions',
   }
 
   toggleQuestionList = () => {
     if (this.state.selectedOption === 'unansweredQuestions') {
       this.setState({
         selectedOption: 'answeredQuestions'
-       })
+      })
     }else{
       this.setState({
         selectedOption: 'unansweredQuestions'
-       })
+      })
     }
   }
 
    // sorts the questions by timestamps
   arrangedQuestionList = () => {
     questionsArr = Object.keys(this.props.questions);
-    return questionsArr.sort(compareFunction(a,b)
-      {return (a.timestamp - b.timestamp)});
+    return questionsArr.sort(compareFunction(a,b) => a[timestamp] - b[timestamp]);
   }
-    
+
   //adds to the state the  current question
   setQuestion = (questionId) => {
     this.props.dispatch(setCurrentQuestion(questionId));
+    return(
+      <Redirect to= {{
+        pathname: `/questions/:${qObj.id}`,
+        state: {referrer: '/'}
+      }}/>
+    )
   }
 
   render (){
@@ -48,39 +53,41 @@ class Home extends React.Component {
       )
     }else{
       return (
-        <React.Fragment>
+        <div>
           <Header/>
-          <main className='mainContainer'>
-            <div className="questionListChanger">
-              <select value={this.state.selectedOption} onChange={this.toggleQuestionList}>
-                <option value="unansweredQuestions">Unanswered Questions</option>
-                <option value="answeredQuestions">Answered Questions</option>
-              </select>
-            </div>
-            <div className="listContainer">
-              <ul className="list"></ul>
-              { /* filters the questionsList*/
-                this.arrangedQuestionList.map(qObj => {
-                  if (this.props.logedInUser.includes(qObj.id)) {
-                    return (
-                      <li key={qObj.id} onClick={this.setQuestion(qObj.id)}> 
-                        <Link className="openQuestion" to=`/questions/:${qObj.id}`>
+          <React.Fragment>
+            <main className='mainContainer'>
+              <div className="questionListChanger">
+                <select value={`{this.state.selectedOption}`} onChange={this.toggleQuestionList}>
+                  <option value="unansweredQuestions">Unanswered Questions</option>
+                  <option value="answeredQuestions">Answered Questions</option>
+                </select>
+              </div>
+              <div className="listContainer">
+                <ul className="list">
+                { /* filters the questionsList*/
+                  this.arrangedQuestionList.map(qObj => {
+                    if (this.props.logedInUser.includes(qObj.id)){
+                      return (
+                      <li key={`{qObj.id}`} onClick={this.setQuestion(qObj.id)}>
                         `Would you rather ${qObj.optionOne.text} or ${qObj.optionTwo.text}?`
-                        </Link>
                       </li>
-                  )
-                }else{
-                  return (
-                    <div>  There is no question to match your filter. </div>
-                  );
+                      )
+                    }else{
+                      return (
+                        <div>There is no question to match your filter.</div>
+                      )
+                    };
+                  })
                 }
-              })
-            }
-          </main>
+                </ul>
+              </div>
+            </main>
+          </React.Fragment>
           <Footer/>
-        </React.Fragment>
+        </div>
       )
-    };
+    }
   }
 }
 
@@ -90,6 +97,5 @@ const mapStateToProps = (state) => {
     logedInUser: state.logedInUser,
   };
 };
-
 
 export default connect(mapStateToProps)(Home);

@@ -25,37 +25,37 @@ class NewQuestion extends React.Component {
   }
 
   render (){
-      if (this.props.logedInUser == undefined) {
-        alert('You are not loged in. Please log in.');
-        return(
-          <Redirect to= {{
-            pathname: '/login',
-            state: {referrer: '/add'}
-          }}/>
-        )
-      }else{
-        return (
-          <React.Fragment>
-            <Header/>
-            <form className='newQuestion'>
-              <h3 className="questionText"> Would you rather ... </h3>
-              <input id="option1" type="text" placeholder="option one"></input>
-              <input id="option2" type="text" placeholder="option two"></input>
-              <button className="saveBtn" onClick={this.saveNewQuestion}>Save</button>
-            </form>
-            <Footer/>
-          </React.Fragment>
-        )
-      }
+    if (this.props.logedInUser == undefined) {
+      alert('You are not loged in. Please log in.');
+      return(
+        <Redirect to= {{
+          pathname: '/login',
+          state: {referrer: '/add'}
+        }}/>
+      )
+    }else{
+      return (
+        <React.Fragment>
+          <Header/>
+          <form className='newQuestion'>
+            <h3 className="questionText"> Would you rather ... </h3>
+            <input id="option1" type="text" placeholder="option one"></input>
+            <input id="option2" type="text" placeholder="option two"></input>
+            <button className="saveBtn" onClick={this.saveNewQuestion}>Save</button>
+          </form>
+          <Footer/>
+        </React.Fragment>
+      )
     }
   }
+}
 
-  const mapStateToProps = (state) => {
-    return {
-      questions: state.questions,
-      logedInUser: state.logedInUser,
-    };
+const mapStateToProps = (state) => {
+  return {
+    questions: state.questions,
+    logedInUser: state.logedInUser,
   };
-  
-  export default connect(mapStateToProps)(NewQuestion);
+};
+
+export default connect(mapStateToProps)(NewQuestion);
 

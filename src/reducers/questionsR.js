@@ -19,13 +19,13 @@ const questionsR = (state, action) => {
         }
       };
       case actionTypes.ADD_QUESTION_TO_STATE:
-        const questionId = action.payload.id;
+        const questId = action.payload.id;
 
         return {
           ...state,
           questions: {
             ...state[questions],
-            [questionId]: action.payload
+            [questId]: action.payload
           }
         };
      case actionTypes.SET_CURRENT_QUESTION:

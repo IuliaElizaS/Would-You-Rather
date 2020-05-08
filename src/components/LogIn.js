@@ -1,17 +1,17 @@
-import React from '.react';
+import React from 'react';
 import { connect } from 'react-redux';
 import {setLogedInUser} from '../actions/userA';
 import '../style/App.css';
 
 
 class LogIn extends React.Component {
-  
+
   state={
     selectedUserId: ""
   };
 
   /* gets the selected user id, after the user selects his name from the list */
-  getUserId = (event.target) => {
+  getUserId = (event) => {
     this.setState ({
     selectedUserId: `${event.target.value}`
     })
@@ -38,26 +38,26 @@ class LogIn extends React.Component {
         this.redirectUser();
       }
   }
-  
+
   render (){
     return (
-      <div className="logIn">        
+      <div className="logIn">
         <div className="leftImg">
-          <img src="img\question-mark-1421013_640.png" alt="question marks"></img>                   
-        </div>  
+          <img src="img\question-mark-1421013_640.png" alt="question marks"></img>
+        </div>
         <h1 className="title"> Would you rather ... </h1>
-        <form className="logInform">  
+        <form className="logInform">
             <p className="infoText"> Wellcome to the game. Please select your name from the list below and click on Log In button</p>                 
             <select id="userDropdown" value="" onChange={this.getUserID}>
-            { //generates an entry for each user from the user object 
+            { //generates an entry for each user from the user object
                 Object.keys(this.props.users).map( user => {
-                    console.log(`User ${user.name} entered`); 
+                    console.log(`User ${user.name} entered`);
                     return(
-                       `<option key="${user.name}" value="${user.id}">${user.name}</option>`
-                    );               
-                })  
+                      <option key={`${user.name}`} value={`${user.id}`}>${user.name}</option>
+                    );
+                })
             }
-            </select>     
+            </select>
             <button className="logInBtn" onClick={this.logInUser}>Log In</button>
         </form>
       </div>
@@ -71,6 +71,6 @@ const mapStateToProps = (state) => {
     return {
       users: state.users
     };
-  };
- 
+};
+
 export default connect(mapStateToProps)(LogIn);

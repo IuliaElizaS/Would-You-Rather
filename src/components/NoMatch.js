@@ -7,8 +7,8 @@ class NoMatch extends React.Component {
     return (
       <div className="page-error">
         <h2> Error 404</h2>
-        <p>Please return to 
-          <Link to='/login'>Log In page</Link> 
+        <p>Please return to
+          <Link to='/login'>Log In page</Link>
         </p>
         <p>We can not find the page you are looking for</p>
         <img src="/img/icons8-sad.png" alt="a sad face"></img>

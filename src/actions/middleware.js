@@ -7,7 +7,7 @@ export const saveQuestion = (question) => {
     return function (dispatch) {
         return _saveQuestion(question)
         .then((response) => {
-            dispatch(addQuestionToState(response)),
+            dispatch(addQuestionToState(response));
             dispatch(updateUserQuestions(response));
         })
         .then(() => dispatch(updateUserScore(question.author)))
@@ -15,7 +15,7 @@ export const saveQuestion = (question) => {
 };
 
 export const saveAnswer = (answer) => {
-    return function (dispatch) {  
+    return function (dispatch) {
         return _saveQuestionAnswer(answer)
         .then(() => {
             dispatch(addAnswerToState(answer));

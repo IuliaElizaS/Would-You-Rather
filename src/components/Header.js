@@ -5,15 +5,14 @@ import '../style/App.css';
 
 class Header extends React.Component {
     render (){
-      return (           
+      return (
         <div className="topContainer">
             <h2 className="title">Would You Rather ...</h2>
             <NavBar/>
-            <UserBar/>                 
+            <UserBar/>
         </div>
       )
     }
   }
-  
-  export default Header;
-  
+
+export default Header;
