@@ -11,10 +11,10 @@ class Leaderboard extends React.Component {
         this.props.dispatch(addScoreToUserObj(this.props.users))
     };
     usersLeaderboard = () => {
-        usersArr = Object.keys(this.props.users);
+       const usersArr = Object.keys(this.props.users);
         return usersArr.sort((a, b) => {
-            return (a.score - b.score)
-        });
+          return (a.score - b.score)
+      });
     }
     render() {
         if (this.props.logedInUser == undefined) {
@@ -34,17 +34,17 @@ class Leaderboard extends React.Component {
                           {/* sorts the users by score and generates user card */}
                           {this.usersLeaderboard.map(user => {
                             return (
-                              <li className="card" key={`${user.id}`}>
+                              <li className="card" key={user.id}>
                                 <div className="user">
-                                  <img src={`${user.avatarURL}`} alt="userAvatar"/>
-                                  <div className="userName">${user.name}</div>
+                                  <img src={user.avatarURL} alt="userAvatar"/>
+                                  <div className="userName">{user.name}</div>
                                 </div>
                                 <div className="scoreContainer">
                                   <p className="item"> Answered
-                                    questions: <span>${Object.keys(user.answers).length}</span></p>
+                                    questions: <span>{Object.keys(user.answers).length}</span></p>
                                   <p className="item"> Created
-                                    questions: <span>${user.questions.length}</span></p>
-                                  <p className="score"> Score: <span>${user.score}</span></p>
+                                    questions: <span>{user.questions.length}</span></p>
+                                  <p className="score"> Score: <span>{user.score}</span></p>
                                 </div>
                               </li>
                             )

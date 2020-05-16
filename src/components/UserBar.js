@@ -19,8 +19,8 @@ class UserBar extends React.Component {
   render (){
     return (
       <div className="userBar">
-        <img className="avatarImg" src={`${this.props.logedInUser.avatarURL}`} alt="userAvatar"></img>
-        <div className="userName">${this.props.logedInUser.name}</div>
+        <img className="avatarImg" src={this.props.logedInUser.avatarURL} alt="userAvatar"></img>
+        <div className="userName">{this.props.logedInUser.name}</div>
         <button className="logOutBtn" onClick={this.logOut}>Log out</button>
       </div>
     )

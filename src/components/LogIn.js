@@ -13,7 +13,7 @@ class LogIn extends React.Component {
   /* gets the selected user id, after the user selects his name from the list */
   getUserId = (event) => {
     this.setState ({
-    selectedUserId: `${event.target.value}`
+    selectedUserId: event.target.value
     })
 };
 
@@ -53,7 +53,7 @@ class LogIn extends React.Component {
                 Object.keys(this.props.users).map( user => {
                     console.log(`User ${user.name} entered`);
                     return(
-                      <option key={`${user.name}`} value={`${user.id}`}>${user.name}</option>
+                      <option key={user.name} value={user.id}>{user.name}</option>
                     );
                 })
             }

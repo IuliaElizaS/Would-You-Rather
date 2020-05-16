@@ -8,11 +8,11 @@ import {getData} from './utils/helper';
 import rootReducer from './reducers/rootReducer';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-import './Style/App.css';
+import './style/App.css';
 
 //get's the initial data from the  DATA database and sets them as the initial state
 let initialState = getData();
-const store = createStore(rootReducer, applyMiddleware(thunk), initialState);
+const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
 console.log(store.getState());
 
 ReactDOM.render(

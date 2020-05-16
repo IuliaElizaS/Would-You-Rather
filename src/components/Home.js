@@ -24,10 +24,10 @@ class Home extends React.Component {
     }
   }
 
-   // sorts the questions by timestamps
+   // sorts the questions by timestamps ... the newest first
   arrangedQuestionList = () => {
-    questionsArr = Object.keys(this.props.questions);
-    return questionsArr.sort(compareFunction(a,b) => a[timestamp] - b[timestamp]);
+    const questionsArr = Object.keys(this.props.questions);
+    return questionsArr.sort((a,b) => (a.timestamp - b.timestamp));
   }
 
   //adds to the state the  current question
@@ -35,7 +35,7 @@ class Home extends React.Component {
     this.props.dispatch(setCurrentQuestion(questionId));
     return(
       <Redirect to= {{
-        pathname: `/questions/:${qObj.id}`,
+        pathname: `/questions/:${questionId}`,
         state: {referrer: '/'}
       }}/>
     )
@@ -58,7 +58,7 @@ class Home extends React.Component {
           <React.Fragment>
             <main className='mainContainer'>
               <div className="questionListChanger">
-                <select value={`{this.state.selectedOption}`} onChange={this.toggleQuestionList}>
+                <select value={this.state.selectedOption} onChange={this.toggleQuestionList}>
                   <option value="unansweredQuestions">Unanswered Questions</option>
                   <option value="answeredQuestions">Answered Questions</option>
                 </select>
@@ -69,7 +69,7 @@ class Home extends React.Component {
                   this.arrangedQuestionList.map(qObj => {
                     if (this.props.logedInUser.includes(qObj.id)){
                       return (
-                      <li key={`{qObj.id}`} onClick={this.setQuestion(qObj.id)}>
+                      <li key={qObj.id} onClick={this.setQuestion(qObj.id)}>
                         `Would you rather ${qObj.optionOne.text} or ${qObj.optionTwo.text}?`
                       </li>
                       )

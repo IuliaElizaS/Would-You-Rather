@@ -21,11 +21,14 @@ class Question extends React.Component {
   highlightVotedOption = () => {
     const firstOption = document.getElementById('optionOne');
     const secondOption = document.getElementById('optionTwo');
-    this.props.question.optionOne.votes.includes(this.props.logedInUser.id)
-    ? (firstOption.checked = true,
-        firstOption.style.backgroundColor = "#00ff45")
-    : (secondOption.checked = true,
-        secondOption.style.backgroundColor = "#00ff45");
+    if (this.props.question.optionOne.votes.includes(this.props.logedInUser.id)) {
+      firstOption.checked = true;
+      firstOption.style.backgroundColor = "#00ff45"
+    };
+    if (this.props.question.optionTwo.votes.includes(this.props.logedInUser.id)) {
+      secondOption.checked = true;
+      secondOption.style.backgroundColor = "#00ff45"
+    }
   }
 
   //saves the voted option
@@ -47,7 +50,7 @@ class Question extends React.Component {
       return(
           <Redirect to= {{
           pathname: '/login',
-          state: {referrer: `//questions/:${this.props.question.id}`},
+          state: {referrer: `/questions/:${this.props.question.id}`},
           }} />
       )
     }else{
@@ -58,37 +61,32 @@ class Question extends React.Component {
             <React.Fragment>
               <main className="questionBox">
                 <div className="creatorWrapper">
-                  <img src={`${this.props.questionAuthor.avatarURL}`} alt="authorAvatar"></img>
-                  <div className="authorName">${this.props.questionAuthor.name}<span>asks:</span></div>
+                  <img src={this.props.questionAuthor.avatarURL} alt="authorAvatar"></img>
+                  <div className="authorName">{this.props.questionAuthor.name}<span>asks:</span></div>
                 </div>
                 <h3>Would you rather ... </h3>
-                  {if (this.props.logedInUser.answers.includes(this.props.question.id)) {
-                    return (
-                      <div className="optionBox">
-                        <div className="optionWrapper">
-                          <input id="firstOption" type="checkbox" value={`${this.props.question.optionOne.text}`}></input>
-                          <p>Voted by <span>${this.props.question.optionOne.votes.length}</span> people</p>
-                          <p>Reprezenting <span>${this.calcPercentage(this.props.question.optionOne.votes.length)}</span>% of the votes</p>
-                        </div>
-                        <div className="optionWrapper">
-                          <input id="secondOption" type="checkbox" value={`${this.props.question.optionTwo.text}`}></input>
-                          <p>Voted by <span>${this.props.question.optionTwo.votes.length}</span> people</p>
-                          <p>Reprezenting <span>${this.calcPercentage(this.props.question.optionTwo.votes.length)}</span>% of the votes</p>
-                        </div>
+                {this.props.logedInUser.answers.includes(this.props.question.id)
+                  ? (<div className="optionBox">
+                      <div className="optionWrapper">
+                        <input id="firstOption" type="checkbox" value={this.props.question.optionOne.text}></input>
+                        <p>Voted by <span>{this.props.question.optionOne.votes.length}</span> people</p>
+                        <p>Reprezenting <span>{this.calcPercentage(this.props.question.optionOne.votes.length)}</span>% of the votes</p>
                       </div>
-                    );
-                    this.highlightVotedOption();
-                    }else{
-                      return (
-                        <form className="optionBox">
-                          <input id="optionOne" type="checkbox" value={`${this.props.question.optionOne.text}`}></input>
-                          <input id="optionTwo" type="checkbox" value={`${this.props.question.optionTwo.text}`}></input>
-                          <button id="submitBtn" onClick={this.saveVote}></button>
-                        </form>
-                      );
-                    };
-                  }
-                </main>
+                      <div className="optionWrapper">
+                        <input id="secondOption" type="checkbox" value={this.props.question.optionTwo.text}></input>
+                        <p>Voted by <span>{this.props.question.optionTwo.votes.length}</span> people</p>
+                        <p>Reprezenting <span>{this.calcPercentage(this.props.question.optionTwo.votes.length)}</span>% of the votes</p>
+                      </div>
+                    </div>)
+                  :(<form className="optionBox">
+                      <input id="optionOne" type="checkbox" value={this.props.question.optionOne.text}></input>
+                      <input id="optionTwo" type="checkbox" value={this.props.question.optionTwo.text}></input>
+                      <button id="submitBtn" onClick={this.saveVote}></button>
+                    </form>
+                    )
+                }
+                {this.highlightVotedOption()}
+              </main>
             </React.Fragment>
             <Footer/>
         </div>
