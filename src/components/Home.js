@@ -1,19 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {Redirect } from 'react-router-dom';
-import {setCurrentQuestion} from '../actions/questionA';
 import Header from './Header';
+import QuestionsList from './QuestionsList';
 import Footer from './Footer';
 import '../style/App.css';
 
 class Home extends React.Component {
 
   state = {
-    selectedOption: 'unansweredQuestions',
+    questionsToBeDisplayed: 'unansweredQuestions'
   }
 
-  toggleQuestionList = () => {
-    if (this.state.selectedOption === 'unansweredQuestions') {
+  // toggles answered and unanswered questions
+  toggleQuestionList = (evt) => {
+    /* if (this.state.questionsToDisplay === 'unansweredQuestions') {
       this.setState({
         selectedOption: 'answeredQuestions'
       })
@@ -21,37 +22,15 @@ class Home extends React.Component {
       this.setState({
         selectedOption: 'unansweredQuestions'
       })
-    }
-  }
-
-   // sorts the questions by timestamps ... the newest first
-  arrangedQuestionList = () => {
-    const questionsArr = Object.keys(this.props.questions);
-    return questionsArr.sort((a,b) => (a.timestamp - b.timestamp));
-  }
-
-  //adds to the state the  current question
-  setQuestion = (questionId) => {
-    this.props.dispatch(setCurrentQuestion(questionId));
-    return(
-      <Redirect to= {{
-        pathname: `/questions/:${questionId}`,
-        state: {referrer: '/'}
-      }}/>
-    )
+    } */
+    this.setState({
+      questionsToBeDisplayed: evt.target.value
+    })
   }
 
   render (){
-    {/*checks if the user is  loged in */}
-    if (this.props.logedInUser == undefined) {
-      alert('You are not loged in. Please log in.');
-      return(
-        <Redirect to= {{
-          pathname: '/login',
-          state: {referrer: '/'}
-        }}/>
-      )
-    }else{
+    //checks if the user is  loged in
+    if (this.props.logedInUser) {
       return (
         <div>
           <Header/>
@@ -63,29 +42,18 @@ class Home extends React.Component {
                   <option value="answeredQuestions">Answered Questions</option>
                 </select>
               </div>
-              <div className="listContainer">
-                <ul className="list">
-                { /* filters the questionsList*/
-                  this.arrangedQuestionList.map(qObj => {
-                    if (this.props.logedInUser.includes(qObj.id)){
-                      return (
-                      <li key={qObj.id} onClick={this.setQuestion(qObj.id)}>
-                        `Would you rather ${qObj.optionOne.text} or ${qObj.optionTwo.text}?`
-                      </li>
-                      )
-                    }else{
-                      return (
-                        <div>There is no question to match your filter.</div>
-                      )
-                    };
-                  })
-                }
-                </ul>
-              </div>
+              <QuestionsList questionsToBeDisplayed={this.state.questionsToBeDisplayed}/> 
             </main>
           </React.Fragment>
           <Footer/>
         </div>
+      )
+    } else {
+      return (
+        <Redirect to= {{
+          pathname: '/login',
+          state: {referrer: '/'}
+        }}/>
       )
     }
   }
@@ -93,9 +61,8 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    questions: state.questions,
-    logedInUser: state.logedInUser,
-  };
+    logedInUser: state.users.logedInUser
+  }
 };
 
 export default connect(mapStateToProps)(Home);

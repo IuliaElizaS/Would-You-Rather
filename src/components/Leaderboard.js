@@ -17,7 +17,7 @@ class Leaderboard extends React.Component {
       });
     }
     render() {
-        if (this.props.logedInUser == undefined) {
+        if (this.props.logedInUser === '') {
             alert('You are not loged in. Please log in.');
             return (
                 <Redirect to={{
@@ -61,8 +61,8 @@ class Leaderboard extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.users,
-    logedInUser: state.logedInUser,
+    users: state.users.users,
+    logedInUser: state.users.logedInUser
   };
 };
 

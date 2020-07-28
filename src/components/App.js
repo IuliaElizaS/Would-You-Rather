@@ -2,6 +2,8 @@ import React from 'react';
 import {Switch} from 'react-router';
 import {Route} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
+import { connect } from 'react-redux';
+import {setInitialUsersState, setInitialQuestionsState} from '../middleware/middleware';
 import LogIn from './LogIn';
 import Home from './Home';
 import Leaderboard from './Leaderboard';
@@ -11,6 +13,12 @@ import NoMatch from './NoMatch';
 import '../style/App.css';
 
 class App extends React.Component {
+
+  componentDidMount(){
+    this.props.dispatch(setInitialUsersState());
+    this.props.dispatch(setInitialQuestionsState());
+    console.log(`initial state is: ${this.props.state}`);
+  }
 
   render (){
     return (
@@ -38,4 +46,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    state: state
+  };
+};
+
+export default connect(mapStateToProps)(App);

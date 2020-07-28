@@ -15,21 +15,24 @@ class UserBar extends React.Component {
     );
   }
 
-
   render (){
-    return (
-      <div className="userBar">
-        <img className="avatarImg" src={this.props.logedInUser.avatarURL} alt="userAvatar"></img>
-        <div className="userName">{this.props.logedInUser.name}</div>
-        <button className="logOutBtn" onClick={this.logOut}>Log out</button>
-      </div>
-    )
+    if (this.props.logedInUser) {
+      return (
+        <div className="userBar">
+          <img className="avatarImg" src={this.props.logedInUser.avatarURL || 'http://via.placeholder.com/50x50.png/ffe99b/282c4b?text=No+Avatar'} alt="userAvatar"></img>
+          <div className="userName">{this.props.logedInUser.name}</div>
+          <button className="logOutBtn" onClick={this.logOut}>Log out</button>
+        </div>
+      )
+    }else{
+      return(null);
+    }
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    logedInUser: state.logedInUser
+    logedInUser: state.users.logedInUser,
   };
 };
 

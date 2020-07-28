@@ -4,6 +4,12 @@ export const ADD_SCORE_TO_USER_OBJ = "ADD_SCORE_TO_USER_OBJ";
 export const UPDATE_USER_ANSWERS = "UPDATE_USER_ANSWERS";
 export const UPDATE_USER_QUESTIONS = "UPDATE_USER_QUESTIONS";
 export const UPDATE_USER_SCORE = "UPDATE_USER_SCORE";
+export const ADD_USERS_TO_STATE = "ADD_USERS_TO_STATE"
+
+export const addUsersToState = (users) => ({
+    type: "ADD_USERS_TO_STATE",
+    payload: users
+});
 
 export const setLogedInUser = (userId) => ({
     type: SET_LOGED_IN_USER,

@@ -1,16 +1,23 @@
-import {SET_LOGED_IN_USER, LOG_OUT_USER, ADD_SCORE_TO_USER_OBJ, UPDATE_USER_QUESTIONS, UPDATE_USER_ANSWERS, UPDATE_USER_SCORE} from '../actions/userA';
+import {ADD_USERS_TO_STATE, SET_LOGED_IN_USER, LOG_OUT_USER, ADD_SCORE_TO_USER_OBJ, UPDATE_USER_QUESTIONS, UPDATE_USER_ANSWERS, UPDATE_USER_SCORE} from '../actions/userA';
 
 export const usersR = (state = {}, action) => {
     switch (action.type) {
-    case SET_LOGED_IN_USER:
-        return {
+    case ADD_USERS_TO_STATE:
+      console.log(action.payload, `initial state in userR is ${state}`);
+      return {
         ...state,
-        loggedInUser: state.users[action.payload]
-        };
+        users: action.payload
+      };
+    case SET_LOGED_IN_USER:
+      let logedId = action.payload;
+      return {
+      ...state,
+      logedInUser: state.users[logedId]
+      };
     case LOG_OUT_USER:
       return {
       ...state,
-      loggedInUser: {},
+      logedInUser: {},
       };
     case ADD_SCORE_TO_USER_OBJ:
         Object.keys(state.users).forEach((user) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import {saveQuestion} from '../actions/middleware';
+import {saveQuestion} from '../middleware/middleware';
 import Header from './Header';
 import Footer from './Footer';
 import '../style/App.css';
@@ -25,7 +25,7 @@ class NewQuestion extends React.Component {
   }
 
   render (){
-    if (this.props.logedInUser == undefined) {
+    if (this.props.logedInUser === '') {
       alert('You are not loged in. Please log in.');
       return(
         <Redirect to= {{
@@ -52,8 +52,8 @@ class NewQuestion extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    questions: state.questions,
-    logedInUser: state.logedInUser,
+    questions: state.questions.questions,
+    logedInUser: state.users.logedInUser,
   };
 };
 
