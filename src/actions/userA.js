@@ -1,4 +1,4 @@
-export const SET_LOGED_IN_USER = "SET_LOGED_IN_USER";
+export const SET_LOGGED_IN_USER = "SET_LOGGED_IN_USER";
 export const LOG_OUT_USER = "LOG_OUT_USER";
 export const ADD_SCORE_TO_USER_OBJ = "ADD_SCORE_TO_USER_OBJ";
 export const UPDATE_USER_ANSWERS = "UPDATE_USER_ANSWERS";
@@ -11,8 +11,8 @@ export const addUsersToState = (users) => ({
     payload: users
 });
 
-export const setLogedInUser = (userId) => ({
-    type: SET_LOGED_IN_USER,
+export const setLoggedInUser = (userId) => ({
+    type: SET_LOGGED_IN_USER,
     payload: userId
 });
 

@@ -6,25 +6,6 @@ import '../style/App.css';
 
 class QuestionsList extends React.Component {
 
-    state = {
-        sortedQuestions: []
-    }
-
-    // filters the questionsList according to the user's option: answered or unanswered
-    filterQuestions = () => {
-        const questionsArr = Object.values(this.props.questions);
-        const userAnsweredQ = this.props.logedInUser.answers;
-        const filteredQuestions = questionsArr.filter((question) => {
-            return userAnsweredQ.hasOwnProperty(question.id);
-        });
-        // sorts the questions by timestamps ... the newest first
-        const sortedQuestionsArr = filteredQuestions.sort((a,b) => (a.timestamp - b.timestamp));
-        console.log(`sorted questions are ${sortedQuestionsArr}`);
-        this.setState({
-            sortedQuestions: sortedQuestionsArr
-        });
-    }
-
     //adds to the Redux state the  current question
     setQuestion = (questionId) => {
         this.props.dispatch(setCurrentQuestion(questionId));
@@ -36,37 +17,38 @@ class QuestionsList extends React.Component {
         )
     }
 
-    componentDidMount(){
-        if (this.props.questions !== null && this.props.questions !== undefined){
-            this.filterQuestions()
-        }else{
-            console.log ('question object empty');
-        }
-    };
-
     render (){
-        let list;
-        this.state.sortedQuestions.length > 0
-            ? list = this.state.sortedQuestions.map(qObj => {
-                return (
-                    <li key={qObj.id} onClick={() => this.setQuestion(qObj.id)}>
-                        Would you rather {qObj.optionOne.text} or {qObj.optionTwo.text}?
-                    </li>
-                )
-            })
-            : list = <div>There is no question to match your filter.</div>;
-        return (
-            <ul className="listContainer">
-                {list}
-            </ul>
-        )
+        if (this.props.questionsToBeDisplayed.length > 0) {
+            /* sorts the questions by timestamps ... the newest first */
+            const sortedQuestions = this.props.questionsToBeDisplayed.sort((a,b) => (a.timestamp - b.timestamp));
+
+            return (
+                <ol className="listContainer">
+                    {sortedQuestions.map(qObj => {
+                        return (
+                            <li key={qObj.id} onClick={() => this.setQuestion(qObj.id)}>
+                                Would you rather {qObj.optionOne.text} or {qObj.optionTwo.text}?
+                            </li>
+                        )
+                    })
+                    }
+                </ol>
+            )
+        }else {
+            return (
+                <ol className="listContainer">
+                    <li>There is no question to match your filter.</li>
+                </ol>
+            )
+        }
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         questions: state.questions.questions,
-        logedInUser: state.users.logedInUser
+        questionsToBeDisplayed: state.questions.questionsToBeDisplayed,
+        loggedInUser: state.users.loggedInUser
     };
 };
 

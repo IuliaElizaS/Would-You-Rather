@@ -21,11 +21,11 @@ class Question extends React.Component {
   highlightVotedOption = () => {
     const firstOption = document.getElementById('optionOne');
     const secondOption = document.getElementById('optionTwo');
-    if (this.props.question.optionOne.votes.includes(this.props.logedInUser.id)) {
+    if (this.props.question.optionOne.votes.includes(this.props.loggedInUser.id)) {
       firstOption.checked = true;
       firstOption.style.backgroundColor = "#00ff45"
     };
-    if (this.props.question.optionTwo.votes.includes(this.props.logedInUser.id)) {
+    if (this.props.question.optionTwo.votes.includes(this.props.loggedInUser.id)) {
       secondOption.checked = true;
       secondOption.style.backgroundColor = "#00ff45"
     }
@@ -36,7 +36,7 @@ class Question extends React.Component {
     const votedOption = evt.target.id;
 
     const answer = {
-      authedUser: this.props.logedInUser.id,
+      authUser: this.props.loggedInUser.id,
       qid: this.props.question.id,
       answer: votedOption
     };
@@ -45,8 +45,8 @@ class Question extends React.Component {
   }
 
   render (){
-    if (this.props.logedInUser === '') {
-      alert('You are not loged in. Please log in.');
+    if (this.props.loggedInUser === '') {
+      alert('You are not logged in. Please log in.');
       return(
           <Redirect to= {{
           pathname: '/login',
@@ -65,17 +65,17 @@ class Question extends React.Component {
                   <div className="authorName">{this.props.questionAuthor.name}<span>asks:</span></div>
                 </div>
                 <h3>Would you rather ... </h3>
-                {this.props.logedInUser.answers.includes(this.props.question.id)
+                {this.props.loggedInUser.answers.includes(this.props.question.id)
                   ? (<div className="optionBox">
                       <div className="optionWrapper">
                         <input id="firstOption" type="checkbox" value={this.props.question.optionOne.text}></input>
                         <p>Voted by <span>{this.props.question.optionOne.votes.length}</span> people</p>
-                        <p>Reprezenting <span>{this.calcPercentage(this.props.question.optionOne.votes.length)}</span>% of the votes</p>
+                        <p>Representing <span>{this.calcPercentage(this.props.question.optionOne.votes.length)}</span>% of the votes</p>
                       </div>
                       <div className="optionWrapper">
                         <input id="secondOption" type="checkbox" value={this.props.question.optionTwo.text}></input>
                         <p>Voted by <span>{this.props.question.optionTwo.votes.length}</span> people</p>
-                        <p>Reprezenting <span>{this.calcPercentage(this.props.question.optionTwo.votes.length)}</span>% of the votes</p>
+                        <p>Representing <span>{this.calcPercentage(this.props.question.optionTwo.votes.length)}</span>% of the votes</p>
                       </div>
                     </div>)
                   :(<form className="optionBox">
@@ -100,7 +100,7 @@ const mapStateToProps = (state) => {
     users: state.users.users,
     question: state.questions.currentQuestion,
     authorId: state.questions.currentQuestion.author,
-    logedInUser: state.users.logedInUser
+    loggedInUser: state.users.loggedInUser
   };
 };
 

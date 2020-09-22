@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {setLogedInUser} from '../actions/userA';
+import {setLoggedInUser} from '../actions/userA';
 import '../style/App.css';
 
 
@@ -16,7 +16,7 @@ class LogIn extends React.Component {
     this.setUserId = this.setUserId.bind(this);
   }
 
-  // sets the loged in user, after the user selects his name from the list
+  // sets the logged in user, after the user selects his name from the list
   setUserId = (evt) => {
     let selectedUser = evt.target.value;
     this.setState ({
@@ -35,11 +35,11 @@ class LogIn extends React.Component {
 
   logInUser = (e) => {
     e.preventDefault();
-    console.log(`the loged in user id is: ${this.state.selectedUserId}`);
+    console.log(`the logged in user id is: ${this.state.selectedUserId}`);
     //checks if a user was selected
     if (this.state.selectedUserId){
       //saves the current user in the store
-      this.props.dispatch(setLogedInUser(this.state.selectedUserId));
+      this.props.dispatch(setLoggedInUser(this.state.selectedUserId));
       //redirects to home page or to the page he was before
       this.redirectUser();
     } else{
@@ -56,7 +56,7 @@ class LogIn extends React.Component {
         </div>
         <h1 className="title"> Would you rather ... </h1>
         <form className="logInform" onSubmit={this.logInUser}>
-            <p className="infoText"> Wellcome to the game. Please select your name from the list below and click on Log In button</p>
+            <p className="infoText"> Welcome to the game. Please select your name from the list below and click on Log In button</p>
             <select id="userDropdown" defaultValue="text" onChange={this.setUserId}>
               <option value="text" disabled>Please select your name</option>
               {//generates an entry for each user from the users object

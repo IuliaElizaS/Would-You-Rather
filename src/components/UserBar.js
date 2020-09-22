@@ -2,12 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect } from 'react-router-dom';
 import {logOutUser} from '../actions/userA';
+import {setQuestionsToBeDisplayed} from '../actions/questionA'
 import '../style/App.css';
 
 class UserBar extends React.Component {
   logOut = () => {
-    alert('You will be loged out. Please come back soon.');
+    alert('You will be logged out. Please come back soon.');
     this.props.dispatch(logOutUser());
+    this.props.dispatch(setQuestionsToBeDisplayed([]))
     return(
       <Redirect to= {{
         pathname: '/login',
@@ -16,11 +18,11 @@ class UserBar extends React.Component {
   }
 
   render (){
-    if (this.props.logedInUser) {
+    if (this.props.loggedInUser) {
       return (
         <div className="userBar">
-          <img className="avatarImg" src={this.props.logedInUser.avatarURL || 'http://via.placeholder.com/50x50.png/ffe99b/282c4b?text=No+Avatar'} alt="userAvatar"></img>
-          <div className="userName">{this.props.logedInUser.name}</div>
+          <img className="avatarImg" src={this.props.loggedInUser.avatarURL}  alt="userAvatar"></img>
+          <div className="userName">{this.props.loggedInUser.name}</div>
           <button className="logOutBtn" onClick={this.logOut}>Log out</button>
         </div>
       )
@@ -32,7 +34,7 @@ class UserBar extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    logedInUser: state.users.logedInUser,
+    loggedInUser: state.users.loggedInUser,
   };
 };
 

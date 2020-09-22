@@ -1,48 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {Redirect } from 'react-router-dom';
 import Header from './Header';
+import QuestionsListChanger from './QuestionsListChanger';
 import QuestionsList from './QuestionsList';
 import Footer from './Footer';
 import '../style/App.css';
 
 class Home extends React.Component {
 
-  state = {
-    questionsToBeDisplayed: 'unansweredQuestions'
-  }
-
-  // toggles answered and unanswered questions
-  toggleQuestionList = (evt) => {
-    /* if (this.state.questionsToDisplay === 'unansweredQuestions') {
-      this.setState({
-        selectedOption: 'answeredQuestions'
-      })
-    }else{
-      this.setState({
-        selectedOption: 'unansweredQuestions'
-      })
-    } */
-    this.setState({
-      questionsToBeDisplayed: evt.target.value
-    })
-  }
-
   render (){
-    //checks if the user is  loged in
-    if (this.props.logedInUser) {
+    //checks if the user is  logged in
+    if (this.props.loggedInUser) {
       return (
         <div>
           <Header/>
           <React.Fragment>
             <main className='mainContainer'>
-              <div className="questionListChanger">
-                <select value={this.state.selectedOption} onChange={this.toggleQuestionList}>
-                  <option value="unansweredQuestions">Unanswered Questions</option>
-                  <option value="answeredQuestions">Answered Questions</option>
-                </select>
-              </div>
-              <QuestionsList questionsToBeDisplayed={this.state.questionsToBeDisplayed}/> 
+              <QuestionsListChanger/>
+              <QuestionsList/>
             </main>
           </React.Fragment>
           <Footer/>
@@ -61,7 +37,7 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    logedInUser: state.users.logedInUser
+    loggedInUser: state.users.loggedInUser
   }
 };
 
