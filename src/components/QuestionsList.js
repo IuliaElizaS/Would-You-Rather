@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Redirect } from 'react-router-dom';
+import {Route, NavLink, Redirect } from 'react-router-dom';
+import Question from './Question';
 import {setCurrentQuestion} from '../actions/questionA';
 import '../style/App.css';
 
@@ -23,16 +24,21 @@ class QuestionsList extends React.Component {
             const sortedQuestions = this.props.questionsToBeDisplayed.sort((a,b) => (a.timestamp - b.timestamp));
 
             return (
-                <ol className="listContainer">
-                    {sortedQuestions.map(qObj => {
-                        return (
-                            <li key={qObj.id} onClick={() => this.setQuestion(qObj.id)}>
-                                Would you rather {qObj.optionOne.text} or {qObj.optionTwo.text}?
-                            </li>
-                        )
-                    })
-                    }
-                </ol>
+                <React.Fragment>
+                    <ol className="listContainer">
+                        {sortedQuestions.map((qObj, index) => {
+                            return (
+                                <li className="question" key={index} onClick={() => this.setQuestion(qObj.id)}>
+                                    <NavLink to='/questions/:{qObj.id}'>
+                                        Would you rather {qObj.optionOne.text} or {qObj.optionTwo.text}?
+                                    </NavLink>
+                                </li>
+                            )
+                        })
+                        }
+                    </ol>
+                    <Route path="/questions/:id" component={Question} />
+                </React.Fragment>
             )
         }else {
             return (
