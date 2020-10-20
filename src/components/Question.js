@@ -5,11 +5,14 @@ import {saveAnswer} from '../middleware/middleware';
 import NavBar from './NavBar';
 import UserBar from './UserBar';
 import Footer from './Footer';
+import sarahEdoAvatar from '../utils/PixabayAvatars/user-310807_640.png';
+import tylerMcginnisAvatar from '../utils/PixabayAvatars/man-3357275_640.png';
+import johnDoeAvatar from '../utils/PixabayAvatars/avatar-1300331_640.png';
+import voted from '../utils/best-seller.png';
 import '../style/App.css';
 
 class Question extends React.Component {
-
-  questionAuthor = this.props.users[this.props.authorId];
+  
   //calculates what percentage (out of the total votes) represents the votes for an option
   calcPercentage = (optionVotes) => {
     const totalVotes = this.props.question.optionOne.votes.length + this.props.question.optionTwo.votes.length;
@@ -19,22 +22,18 @@ class Question extends React.Component {
 
   //marks the voted option by the user
   highlightVotedOption = () => {
-    const firstOption = document.getElementById('optionOne');
-    const secondOption = document.getElementById('optionTwo');
+    const options = document.getElementsByClassName('vote');
     if (this.props.question.optionOne.votes.includes(this.props.loggedInUser.id)) {
-      firstOption.checked = true;
-      firstOption.style.backgroundColor = "#00ff45"
+      options[0].style.visibility = "visible";
     };
     if (this.props.question.optionTwo.votes.includes(this.props.loggedInUser.id)) {
-      secondOption.checked = true;
-      secondOption.style.backgroundColor = "#00ff45"
+      options[1].style.visibility = "visible";
     }
   }
 
   //saves the voted option
   saveVote = (evt) => {
     const votedOption = evt.target.id;
-
     const answer = {
       authUser: this.props.loggedInUser.id,
       qid: this.props.question.id,
@@ -42,6 +41,10 @@ class Question extends React.Component {
     };
     //saves the vote, updates Question, User and Score
     this.props.dispatch(saveAnswer(answer));
+  }
+
+  componentDidMount() {
+    this.highlightVotedOption();
   }
 
   render (){
@@ -54,41 +57,60 @@ class Question extends React.Component {
           }} />
       )
     }else{
-        return (
-          <div className="questionPage">
-            <NavBar/>
-            <UserBar/>
-            <React.Fragment>
-              <main className="questionBox">
-                <div className="creatorWrapper">
-                  <img src={this.props.questionAuthor.avatarURL} alt="authorAvatar"></img>
-                  <div className="authorName">{this.props.questionAuthor.name}<span>asks:</span></div>
-                </div>
-                <h3>Would you rather ... </h3>
-                {this.props.loggedInUser.answers.includes(this.props.question.id)
-                  ? (<div className="optionBox">
+      const questionAuthor = this.props.users[this.props.authorId];
+      const avatarURLs = {
+        sarahedo : sarahEdoAvatar,
+        tylermcginnis : tylerMcginnisAvatar,
+        johndoe : johnDoeAvatar
+      };
+      const authorAvatar = avatarURLs[this.props.authorId];
+      const answeredQuestionsArr = Object.keys(this.props.loggedInUser.answers);
+      return (
+        <div className="questionPage">
+          <NavBar/>
+          <UserBar/>
+          <React.Fragment>
+            <main className="questionBox">
+              <div className="creatorWrapper">
+                <img src={authorAvatar} alt="authorAvatar"></img>
+                <div className="authorName">{questionAuthor.name}<span> asked:</span></div>
+              </div>
+              <h3>Would you rather ... </h3>
+              {answeredQuestionsArr.includes(this.props.question.id)
+                ? (<section className="answers">
+                    <div className="optionBox">
                       <div className="optionWrapper">
-                        <input id="firstOption" type="checkbox" value={this.props.question.optionOne.text}></input>
+                        <img className="vote" src={voted} alt="icon of a star"></img>
+                        <h4 id="firstOption">{this.props.question.optionOne.text}</h4>
                         <p>Voted by <span>{this.props.question.optionOne.votes.length}</span> people</p>
                         <p>Representing <span>{this.calcPercentage(this.props.question.optionOne.votes.length)}</span>% of the votes</p>
                       </div>
+                      <div className="connector">or</div>
                       <div className="optionWrapper">
-                        <input id="secondOption" type="checkbox" value={this.props.question.optionTwo.text}></input>
+                      <img className="vote" src={voted} alt="icon for voted option"></img>
+                        <h4 id="secondOption">{this.props.question.optionTwo.text}</h4>
                         <p>Voted by <span>{this.props.question.optionTwo.votes.length}</span> people</p>
                         <p>Representing <span>{this.calcPercentage(this.props.question.optionTwo.votes.length)}</span>% of the votes</p>
                       </div>
-                    </div>)
-                  :(<form className="optionBox">
-                      <input id="optionOne" type="checkbox" value={this.props.question.optionOne.text}></input>
-                      <input id="optionTwo" type="checkbox" value={this.props.question.optionTwo.text}></input>
-                      <button id="submitBtn" onClick={this.saveVote}></button>
-                    </form>
-                    )
-                }
-                {this.highlightVotedOption()}
-              </main>
-            </React.Fragment>
-            <Footer/>
+                    </div>
+                    <p className="details">The yellow star marks your answer for this question</p>
+                    <br></br>
+                    <div className="attribution">Icon made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                  </section>
+                  )
+                :(<form className="optionBox">
+                    <input id="optionOne" type="checkbox" name="firstAnswerOption" value={this.props.question.optionOne.text}></input>
+                    <label htmlFor="optionOne">{this.props.question.optionOne.text}</label>
+                    <span className="connector">or</span>
+                    <input id="optionTwo" type="checkbox" name="secondAnswerOption" value={this.props.question.optionTwo.text}></input>
+                    <label htmlFor="optionTwo">{this.props.question.optionTwo.text}?</label>
+                    <input type="button" id="submitBtn" value="Save answer" onClick={this.saveVote}></input>
+                  </form>
+                  )
+              }
+            </main>
+          </React.Fragment>
+          <Footer/>
         </div>
       )
     }

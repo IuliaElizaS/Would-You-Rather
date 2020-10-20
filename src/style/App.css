@@ -166,7 +166,7 @@ input.newQuestion {
 }
 .questionBox {
   width: 95%;
-  margin: 10px auto;  
+  margin: 100px auto;  
 }
 .creatorWrapper {
   width: 70%;
@@ -204,6 +204,18 @@ input.optionWrapper {
 span.optionWrapper {
   font-size: 22px;
   color: #d43a2f;
+}
+.vote {
+  display: inline-block ;
+  width: 40px;
+  height: auto;
+  visibility: hidden;
+}
+.details{
+  font-size: 20px;
+}
+.attribution {
+  font-size: 15px;
 }
 
 /* ---LEADERBOARD COMPONENT --- */

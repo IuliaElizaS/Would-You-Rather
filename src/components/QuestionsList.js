@@ -29,7 +29,7 @@ class QuestionsList extends React.Component {
                         {sortedQuestions.map((qObj, index) => {
                             return (
                                 <li className="question" key={index} onClick={() => this.setQuestion(qObj.id)}>
-                                    <NavLink to='/questions/:{qObj.id}'>
+                                    <NavLink to={`/questions/:${qObj.id}`}>
                                         Would you rather {qObj.optionOne.text} or {qObj.optionTwo.text}?
                                     </NavLink>
                                 </li>
