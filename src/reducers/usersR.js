@@ -45,7 +45,8 @@ export const usersR = (state = {}, action) => {
       }
     };
     case UPDATE_USER_ANSWERS:
-      const uId = action.payload.authUser;
+      const uId = action.payload.authedUser;
+      const qId = action.payload.qid;
       const option = action.payload.answer;
 
       return {
@@ -55,7 +56,7 @@ export const usersR = (state = {}, action) => {
           [uId]:{
             ...state.users[uId],
             answers: {
-              questionId: option
+              [qId]: option
             }
           }
         }

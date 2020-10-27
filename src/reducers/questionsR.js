@@ -14,17 +14,21 @@ export const questionsR = (state = {}, action) => {
         questionsToBeDisplayed: action.payload
       };
     case ADD_ANSWER_TO_STATE:
-      const { userId, questionId, option } = action.payload;
-      let votesArr= state.questions[questionId][option].votes;
+      const userId = action.payload.authedUser;
+      const questionId = action.payload.qid;
+      const votedOption = action.payload.answer;
+      const votedAnswer = state.questions[questionId][votedOption];
+      let votesArr= votedAnswer.votes;
       votesArr.push(userId);
+
       return {
       ...state,
       questions: {
         ...state.questions,
         [questionId]:{
           ...state.questions[questionId],
-          [option]:{
-            ...state.questions[questionId][option],
+          [votedOption]:{
+            ...state.questions[questionId][votedOption],
             votes: votesArr
           }
         }

@@ -1,6 +1,6 @@
 import {_getUsers, _getQuestions,_saveQuestion, _saveQuestionAnswer} from '../utils/DATA';
-import {addQuestionsToState, addAnswerToState, addQuestionToState} from '../actions/questionA';
-import {addUsersToState, updateUserQuestions, updateUserAnswers, updateUserScore} from '../actions/userA';
+import {addQuestionsToState, addQuestionToState} from '../actions/questionA';
+import {addUsersToState, updateUserQuestions, updateUserScore} from '../actions/userA';
 
 // populates the users state with data
 export const setInitialUsersState = () => {
@@ -43,11 +43,6 @@ export const saveQuestion = (question) => {
 
 export const saveAnswer = (answer) => {
     return function (dispatch) {
-        return _saveQuestionAnswer(answer)
-        .then(() => {
-            dispatch(addAnswerToState(answer));
-            dispatch(updateUserAnswers(answer));
-            dispatch(updateUserScore(answer.authedUser))
-        })
+      return _saveQuestionAnswer(answer);
     }
 };

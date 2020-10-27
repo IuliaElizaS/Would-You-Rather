@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {saveAnswer} from '../middleware/middleware';
+import {addAnswerToState} from '../actions/questionA';
+import {updateUserAnswers, updateUserScore} from '../actions/userA';
 import NavBar from './NavBar';
 import UserBar from './UserBar';
 import Footer from './Footer';
@@ -31,16 +33,39 @@ class Question extends React.Component {
     }
   }
 
+  //validates the voted option
+  validateVote = () => {
+    const optionOneCheckbox = document.getElementById('optionOne');
+    const optionTwoCheckbox = document.getElementById('optionTwo');
+
+    if (optionOneCheckbox.checked && optionTwoCheckbox.checked) {
+      alert('You can choose only one answer');
+    } else if ( !optionOneCheckbox.checked && !optionTwoCheckbox.checked) {
+      alert('You must choose one answer and check it');
+    } else if ( optionOneCheckbox.checked && !optionTwoCheckbox.checked) {
+      this.saveVote('optionOne');
+    } else if ( !optionOneCheckbox.checked && optionTwoCheckbox.checked) {
+      this.saveVote('optionTwo');
+    }
+  }
+
   //saves the voted option
-  saveVote = (evt) => {
-    const votedOption = evt.target.id;
+  saveVote = (votedOption) => {
     const answer = {
-      authUser: this.props.loggedInUser.id,
+      authedUser: this.props.loggedInUser.id,
       qid: this.props.question.id,
       answer: votedOption
     };
     //saves the vote, updates Question, User and Score
     this.props.dispatch(saveAnswer(answer));
+    this.props.dispatch(addAnswerToState(answer));
+    this.props.dispatch(updateUserAnswers(answer));
+    this.props.dispatch(updateUserScore(answer.authedUser))
+  }
+
+  //TO DO redirects the user to the home page
+  returnHome = () => {
+
   }
 
   componentDidMount() {
@@ -98,14 +123,17 @@ class Question extends React.Component {
                     <div className="attribution">Icon made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
                   </section>
                   )
-                :(<form className="optionBox">
-                    <input id="optionOne" type="checkbox" name="firstAnswerOption" value={this.props.question.optionOne.text}></input>
-                    <label htmlFor="optionOne">{this.props.question.optionOne.text}</label>
-                    <span className="connector">or</span>
-                    <input id="optionTwo" type="checkbox" name="secondAnswerOption" value={this.props.question.optionTwo.text}></input>
-                    <label htmlFor="optionTwo">{this.props.question.optionTwo.text}?</label>
-                    <input type="button" id="submitBtn" value="Save answer" onClick={this.saveVote}></input>
-                  </form>
+                  :(<section className="answers">
+                      <form className="optionBox">
+                        <input id="optionOne" type="checkbox" name="firstAnswerOption" value={this.props.question.optionOne.text}></input>
+                        <label htmlFor="optionOne">{this.props.question.optionOne.text}</label>
+                        <span className="connector">or</span>
+                        <input id="optionTwo" type="checkbox" name="secondAnswerOption" value={this.props.question.optionTwo.text}></input>
+                        <label htmlFor="optionTwo">{this.props.question.optionTwo.text}?</label>
+                        <input type="button" id="submitBtn" value="Save answer" onClick={this.validateVote}></input>
+                      </form>
+                      <p className="details">Only one answer is accepted</p>
+                    </section>
                   )
               }
             </main>
