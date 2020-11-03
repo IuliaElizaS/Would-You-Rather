@@ -1,4 +1,4 @@
-import {ADD_QUESTIONS_TO_STATE, SET_QUESTIONS_TO_BE_DISPLAYED, ADD_ANSWER_TO_STATE, ADD_QUESTION_TO_STATE, SET_CURRENT_QUESTION} from '../actions/questionA';
+import {ADD_QUESTIONS_TO_STATE, SET_WANTED_QUESTIONS_LIST, ADD_ANSWER_TO_STATE, ADD_QUESTION_TO_STATE, SET_CURRENT_QUESTION} from '../actions/questionA';
 
 
 export const questionsR = (state = {}, action) => {
@@ -8,10 +8,10 @@ export const questionsR = (state = {}, action) => {
         ...state,
         questions: action.payload
       };
-    case SET_QUESTIONS_TO_BE_DISPLAYED:
+    case SET_WANTED_QUESTIONS_LIST:
       return {
         ...state,
-        questionsToBeDisplayed: action.payload
+        wantedQuestionsList: action.payload
       };
     case ADD_ANSWER_TO_STATE:
       const userId = action.payload.authedUser;

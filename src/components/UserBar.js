@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect } from 'react-router-dom';
 import {logOutUser} from '../actions/userA';
-import {setQuestionsToBeDisplayed} from '../actions/questionA';
+import {setWantedQuestionsList} from '../actions/questionA';
 import sarahEdoAvatar from '../utils/PixabayAvatars/user-310807_640.png';
 import tylerMcginnisAvatar from '../utils/PixabayAvatars/man-3357275_640.png';
 import johnDoeAvatar from '../utils/PixabayAvatars/avatar-1300331_640.png';
@@ -14,7 +14,7 @@ class UserBar extends React.Component {
   logOut = () => {
     alert('You will be logged out. Please come back soon.');
     this.props.dispatch(logOutUser());
-    this.props.dispatch(setQuestionsToBeDisplayed([]))
+    this.props.dispatch(setWantedQuestionsList([]))
     return(
       <Redirect to= {{
         pathname: '/login',

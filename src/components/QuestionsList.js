@@ -17,11 +17,29 @@ class QuestionsList extends React.Component {
             }}/>
         )
     }
+    //filters the questions according to the user's option: answered or unanswered
+    filterQuestions = () => {
+        let filteredQuestArr;
+        let questionsArr = Object.values(this.props.questions);
+        let userAnsweredQ = this.props.loggedInUser.answers;
+
+        if (this.props.wantedQuestionsList === 'unansweredQuestions') {
+            filteredQuestArr = questionsArr.filter((question) => {
+                return userAnsweredQ[question.id] === undefined;
+            })
+        } else {
+            filteredQuestArr = questionsArr.filter((question) => {
+                return userAnsweredQ.hasOwnProperty(question.id);
+            })
+        };
+        return filteredQuestArr;
+    }
 
     render (){
-        if (this.props.questionsToBeDisplayed.length > 0) {
+        const filteredQuestions = this.filterQuestions();
+        if (filteredQuestions.length > 0) {
             /* sorts the questions by timestamps ... the newest first */
-            const sortedQuestions = this.props.questionsToBeDisplayed.sort((a,b) => (a.timestamp - b.timestamp));
+            const sortedQuestions = filteredQuestions.sort((a,b) => (a.timestamp - b.timestamp));
 
             return (
                 <React.Fragment>
@@ -53,7 +71,7 @@ class QuestionsList extends React.Component {
 const mapStateToProps = (state) => {
     return {
         questions: state.questions.questions,
-        questionsToBeDisplayed: state.questions.questionsToBeDisplayed,
+        wantedQuestionsList: state.questions.wantedQuestionsList,
         loggedInUser: state.users.loggedInUser
     };
 };

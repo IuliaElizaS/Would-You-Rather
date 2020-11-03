@@ -3,7 +3,6 @@ import {ADD_USERS_TO_STATE, SET_LOGGED_IN_USER, LOG_OUT_USER, ADD_SCORE_TO_USER_
 export const usersR = (state = {}, action) => {
     switch (action.type) {
     case ADD_USERS_TO_STATE:
-      console.log(action.payload, `initial state in userR is ${state}`);
       return {
         ...state,
         users: action.payload

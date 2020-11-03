@@ -14,7 +14,7 @@ import voted from '../utils/best-seller.png';
 import '../style/App.css';
 
 class Question extends React.Component {
-  
+
   //calculates what percentage (out of the total votes) represents the votes for an option
   calcPercentage = (optionVotes) => {
     const totalVotes = this.props.question.optionOne.votes.length + this.props.question.optionTwo.votes.length;
@@ -33,7 +33,7 @@ class Question extends React.Component {
     }
   }
 
-  //validates the voted option
+  //validates the vote
   validateVote = () => {
     const optionOneCheckbox = document.getElementById('optionOne');
     const optionTwoCheckbox = document.getElementById('optionTwo');
@@ -49,7 +49,7 @@ class Question extends React.Component {
     }
   }
 
-  //saves the voted option
+  //saves the vote
   saveVote = (votedOption) => {
     const answer = {
       authedUser: this.props.loggedInUser.id,
@@ -60,12 +60,15 @@ class Question extends React.Component {
     this.props.dispatch(saveAnswer(answer));
     this.props.dispatch(addAnswerToState(answer));
     this.props.dispatch(updateUserAnswers(answer));
-    this.props.dispatch(updateUserScore(answer.authedUser))
+    //this.props.dispatch(updateUserScore(answer.authedUser));
+    alert('Your answer was saved.');
+    this.returnHome();
   }
 
-  //TO DO redirects the user to the home page
+  // redirects the user to the home page
   returnHome = () => {
-
+    console.log(this.props.history);
+    return this.props.history.push('/');
   }
 
   componentDidMount() {
