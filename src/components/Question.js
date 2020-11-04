@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {saveAnswer} from '../middleware/middleware';
-import {addAnswerToState} from '../actions/questionA';
+import {addAnswerToState, setQuestionsListStatus} from '../actions/questionA';
 import {updateUserAnswers, updateUserScore} from '../actions/userA';
 import NavBar from './NavBar';
 import UserBar from './UserBar';
@@ -60,6 +60,7 @@ class Question extends React.Component {
     this.props.dispatch(saveAnswer(answer));
     this.props.dispatch(addAnswerToState(answer));
     this.props.dispatch(updateUserAnswers(answer));
+    this.props.dispatch(setQuestionsListStatus('shouldChange'));
     //this.props.dispatch(updateUserScore(answer.authedUser));
     alert('Your answer was saved.');
     this.returnHome();

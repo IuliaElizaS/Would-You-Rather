@@ -1,4 +1,4 @@
-import {ADD_QUESTIONS_TO_STATE, SET_WANTED_QUESTIONS_LIST, ADD_ANSWER_TO_STATE, ADD_QUESTION_TO_STATE, SET_CURRENT_QUESTION} from '../actions/questionA';
+import {ADD_QUESTIONS_TO_STATE, SET_WANTED_QUESTIONS_LIST, SET_QUESTIONS_LIST_STATUS, ADD_ANSWER_TO_STATE, ADD_QUESTION_TO_STATE, SET_CURRENT_QUESTION} from '../actions/questionA';
 
 
 export const questionsR = (state = {}, action) => {
@@ -34,6 +34,11 @@ export const questionsR = (state = {}, action) => {
         }
       }
     };
+    case SET_QUESTIONS_LIST_STATUS:
+      return {
+        ...state,
+        questionsListStatus: action.payload
+        };
     case ADD_QUESTION_TO_STATE:
       const questId = action.payload.id;
       return {

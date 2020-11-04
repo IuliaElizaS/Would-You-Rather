@@ -35,6 +35,12 @@ class QuestionsList extends React.Component {
         return filteredQuestArr;
     }
 
+    componentDidMount(){
+        if (this.props.questionsListStatus === 'shouldChange') {
+          this.forceUpdate()
+        }
+    }
+
     render (){
         const filteredQuestions = this.filterQuestions();
         if (filteredQuestions.length > 0) {
@@ -43,7 +49,7 @@ class QuestionsList extends React.Component {
 
             return (
                 <React.Fragment>
-                    <ol className="listContainer">
+                    <ol key={this.props.questionsListStatus} className="listContainer">
                         {sortedQuestions.map((qObj, index) => {
                             return (
                                 <li className="question" key={index} onClick={() => this.setQuestion(qObj.id)}>
@@ -72,6 +78,7 @@ const mapStateToProps = (state) => {
     return {
         questions: state.questions.questions,
         wantedQuestionsList: state.questions.wantedQuestionsList,
+        questionsListStatus: state.questions.questionsListStatus,
         loggedInUser: state.users.loggedInUser
     };
 };
