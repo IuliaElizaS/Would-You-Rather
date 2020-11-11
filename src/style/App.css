@@ -243,8 +243,8 @@ span.optionWrapper {
   text-align: center;
   color: #d43a2f;
 }
-img.user{
-  height: 150px;
+.userImg{
+  height: 50px;
   width: auto;
   margin: 10px auto;
 }
@@ -257,11 +257,11 @@ img.user{
   border: 2px solid #9ca8a8;
   margin: auto;
 }
-span.item{
+.spanItem{
   font-size: 22px;
   color: #008055;
 }
-span.score{
+.totalScore{
   font-size: 22px;
   color: #d43a2f;
 }

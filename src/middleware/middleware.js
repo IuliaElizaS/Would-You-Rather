@@ -1,6 +1,6 @@
 import {_getUsers, _getQuestions,_saveQuestion, _saveQuestionAnswer} from '../utils/DATA';
 import {addQuestionsToState, addQuestionToState} from '../actions/questionA';
-import {addUsersToState, updateUserQuestions, updateUserScore} from '../actions/userA';
+import {addUsersToState, updateUserQuestions} from '../actions/userA';
 
 // populates the users state with data
 export const setInitialUsersState = () => {
@@ -37,7 +37,9 @@ export const saveQuestion = (question) => {
             dispatch(addQuestionToState(response));
             dispatch(updateUserQuestions(response));
         })
-        .then(() => dispatch(updateUserScore(question.author)))
+        .catch (err => {
+            console.log(`error from saveQuestion is: ${err}`)
+        })
     }
 };
 

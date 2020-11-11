@@ -21,9 +21,9 @@ export const logOutUser = () => ({
     payload: {},
 });
 
-export const addScoreToUserObj = (users) => ({
+export const addScoreToUserObj = (user, totalScore) => ({
     type: ADD_SCORE_TO_USER_OBJ,
-    payload: users,
+    payload: {user, totalScore}
 });
 
 export const updateUserAnswers = (answer) => ({

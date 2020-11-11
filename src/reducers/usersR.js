@@ -19,14 +19,20 @@ export const usersR = (state = {}, action) => {
       loggedInUser: {},
       };
     case ADD_SCORE_TO_USER_OBJ:
-        Object.keys(state.users).forEach((user) => {
+        /* Object.keys(state.users).forEach((user) => {
           user.score = Object.keys(user.answers).length + user.questions.length;
           console.log(user);
-        });
-        return {
+        }); */
+       return {
         ...state,
-        users: {...state.users}
-        };
+        users: {
+          ...state.users,
+          [action.payload.user]: {
+            ...state.users[action.payload.user],
+            score: action.payload.totalScore
+          }
+        }
+      };
     case UPDATE_USER_QUESTIONS:
       const userId = action.payload.author;
       const questionId = action.payload.id;

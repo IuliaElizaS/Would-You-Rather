@@ -4,65 +4,94 @@ import { Redirect } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import {addScoreToUserObj} from '../actions/userA';
+import sarahEdoAvatar from '../utils/PixabayAvatars/user-310807_640.png';
+import tylerMcginnisAvatar from '../utils/PixabayAvatars/man-3357275_640.png';
+import johnDoeAvatar from '../utils/PixabayAvatars/avatar-1300331_640.png';
 import '../style/App.css';
 class Leaderboard extends React.Component {
-    //adds score key to the user object
-    componentWillMount() {
-        this.props.dispatch(addScoreToUserObj(this.props.users))
-    };
-    usersLeaderboard = () => {
-       const usersArr = Object.keys(this.props.users);
-        return usersArr.sort((a, b) => {
-          return (a.score - b.score)
-      });
+  //sorts the users according to their score
+  usersLeaderboard = () => {
+      const usersArr = Object.values(this.props.users);
+      return usersArr.sort((a, b) => {
+        return (b.score - a.score);
+    });
+  }
+
+  //calculates the score for each user
+  calcUserScore = () => {
+    Object.values(this.props.users).forEach((user) => {
+      let currentUser = user.id;
+      let userAnswersNo = Object.keys(user.answers).length;
+      let userQuestionNo = user.questions.length;
+      let totalScore = userAnswersNo + userQuestionNo;
+      //adds score key to the user object
+      this.props.dispatch(addScoreToUserObj(currentUser, totalScore));
+    });
+  }
+
+  componentDidMount(){
+    this.calcUserScore()
+  }
+
+  render() {
+    //let currentLeaderBoard = this.usersLeaderboard();
+    if (this.props.loggedInUser === '') {
+      alert('You are not logged in. Please log in.');
+      return (
+        <Redirect to={{
+            pathname: '/login',
+            state: {referrer: '/leaderboard'}
+        }}/>
+      )
+    } else {
+      let currentLeaderBoard = this.usersLeaderboard();
+      const avatarURLs = {
+        sarahedo : sarahEdoAvatar,
+        tylermcginnis : tylerMcginnisAvatar,
+        johndoe : johnDoeAvatar
+      };
+
+      return (
+        <React.Fragment>
+          <Header/>
+          <main className="leaderboard">
+            <ul className="list">
+              {/* sorts the users by score and generates user card */}
+              {currentLeaderBoard.map(user => {
+                return (
+                  <li className="card" key={user.id}>
+                    <div className="user">
+                      <img className="userImg" src={avatarURLs[user.id]} alt="userAvatar"/>
+                      <div className="userName">{user.name}</div>
+                    </div>
+                    <div className="scoreContainer">
+                      <p className="item"> Answered questions:
+                        <span className="spanItem"> {Object.keys(user.answers).length}</span>
+                      </p>
+                      <p className="item"> Created questions:
+                        <span className="spanItem"> {user.questions.length}</span>
+                      </p>
+                      <p className="score"> Score:
+                        <span className="totalScore"> {user.score}</span>
+                      </p>
+                    </div>
+                  </li>
+                )
+              })
+              }
+            </ul>
+          </main>
+          <Footer/>
+        </React.Fragment>
+      )
     }
-    render() {
-        if (this.props.logedInUser === '') {
-            alert('You are not loged in. Please log in.');
-            return (
-                <Redirect to={{
-                    pathname: '/login',
-                    state: {referrer: '/leaderboard'}
-                }}/>
-            )
-        } else {
-            return (
-                <React.Fragment>
-                    <Header/>
-                    <main className="leaderboard">
-                        <ul className="list">
-                          {/* sorts the users by score and generates user card */}
-                          {this.usersLeaderboard.map(user => {
-                            return (
-                              <li className="card" key={user.id}>
-                                <div className="user">
-                                  <img src={user.avatarURL} alt="userAvatar"/>
-                                  <div className="userName">{user.name}</div>
-                                </div>
-                                <div className="scoreContainer">
-                                  <p className="item"> Answered
-                                    questions: <span>{Object.keys(user.answers).length}</span></p>
-                                  <p className="item"> Created
-                                    questions: <span>{user.questions.length}</span></p>
-                                  <p className="score"> Score: <span>{user.score}</span></p>
-                                </div>
-                              </li>
-                            )
-                          })
-                          }
-                        </ul>
-                    </main>
-                    <Footer/>
-                </React.Fragment>
-            )
-        }
-    }
+  }
 }
 
 const mapStateToProps = (state) => {
   return {
     users: state.users.users,
-    logedInUser: state.users.logedInUser
+    loggedInUser: state.users.loggedInUser
   };
 };
 
