@@ -19,11 +19,7 @@ export const usersR = (state = {}, action) => {
       loggedInUser: {},
       };
     case ADD_SCORE_TO_USER_OBJ:
-        /* Object.keys(state.users).forEach((user) => {
-          user.score = Object.keys(user.answers).length + user.questions.length;
-          console.log(user);
-        }); */
-       return {
+      return {
         ...state,
         users: {
           ...state.users,
@@ -36,8 +32,6 @@ export const usersR = (state = {}, action) => {
     case UPDATE_USER_QUESTIONS:
       const userId = action.payload.author;
       const questionId = action.payload.id;
-      let questionsArr= state.users[userId].questions;
-      questionsArr.push(questionId);
 
       return {
       ...state,
@@ -45,7 +39,10 @@ export const usersR = (state = {}, action) => {
         ...state.users,
         [userId]:{
           ...state.users[userId],
-          questions: questionsArr
+          questions: [
+            ...state.users[userId].questions,
+            questionId
+          ]
         }
       }
     };
@@ -61,12 +58,13 @@ export const usersR = (state = {}, action) => {
           [uId]:{
             ...state.users[uId],
             answers: {
+              ...state.users[uId].answers,
               [qId]: option
             }
           }
         }
       };
-    case UPDATE_USER_SCORE:
+   /* case UPDATE_USER_SCORE:
       const userid = action.payload;
       const newScore = state.users[userid].score + 1;
 
@@ -79,7 +77,7 @@ export const usersR = (state = {}, action) => {
           score: newScore
           }
         }
-      };
+      }; */
     default:
       return state;
 }}

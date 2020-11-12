@@ -17,9 +17,6 @@ export const questionsR = (state = {}, action) => {
       const userId = action.payload.authedUser;
       const questionId = action.payload.qid;
       const votedOption = action.payload.answer;
-      const votedAnswer = state.questions[questionId][votedOption];
-      let votesArr= votedAnswer.votes;
-      votesArr.push(userId);
 
       return {
       ...state,
@@ -29,7 +26,10 @@ export const questionsR = (state = {}, action) => {
           ...state.questions[questionId],
           [votedOption]:{
             ...state.questions[questionId][votedOption],
-            votes: votesArr
+            votes:[
+              ...state.questions[questionId][votedOption].votes,
+              userId
+            ]
           }
         }
       }

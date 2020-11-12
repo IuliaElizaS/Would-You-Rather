@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {saveAnswer} from '../middleware/middleware';
-import {addAnswerToState, setQuestionsListStatus} from '../actions/questionA';
-import {updateUserAnswers, updateUserScore} from '../actions/userA';
+import {addAnswerToState, setQuestionsListStatus, setCurrentQuestion} from '../actions/questionA';
+import {updateUserAnswers} from '../actions/userA';
 import NavBar from './NavBar';
 import UserBar from './UserBar';
 import Footer from './Footer';
@@ -61,19 +61,22 @@ class Question extends React.Component {
     this.props.dispatch(addAnswerToState(answer));
     this.props.dispatch(updateUserAnswers(answer));
     this.props.dispatch(setQuestionsListStatus('shouldChange'));
-    //this.props.dispatch(updateUserScore(answer.authedUser));
     alert('Your answer was saved.');
     this.returnHome();
   }
 
   // redirects the user to the home page
   returnHome = () => {
-    console.log(this.props.history);
     return this.props.history.push('/');
   }
 
   componentDidMount() {
     this.highlightVotedOption();
+  }
+
+  //clears the current Question in the state
+  componentWillUnmount(){
+    this.props.dispatch(setCurrentQuestion(''));
   }
 
   render (){

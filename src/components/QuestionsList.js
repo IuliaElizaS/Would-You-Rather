@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {Route, NavLink, Redirect } from 'react-router-dom';
 import Question from './Question';
-import {setCurrentQuestion} from '../actions/questionA';
+import {setQuestionsListStatus, setCurrentQuestion} from '../actions/questionA';
 import '../style/App.css';
 
 class QuestionsList extends React.Component {
@@ -21,7 +21,8 @@ class QuestionsList extends React.Component {
     filterQuestions = () => {
         let filteredQuestArr;
         let questionsArr = Object.values(this.props.questions);
-        let userAnsweredQ = this.props.loggedInUser.answers;
+        console.log(`questionsArr: ${questionsArr}`);
+        let userAnsweredQ = this.props.users[this.props.loggedInUser.id].answers;
 
         if (this.props.wantedQuestionsList === 'unansweredQuestions') {
             filteredQuestArr = questionsArr.filter((question) => {
@@ -35,16 +36,17 @@ class QuestionsList extends React.Component {
         return filteredQuestArr;
     }
 
-    componentDidMount(){
+   componentDidMount(){
         if (this.props.questionsListStatus === 'shouldChange') {
-          this.forceUpdate()
+          console.log('should re render');
+          this.props.dispatch(setQuestionsListStatus('listChanged'));
         }
     }
 
     render (){
-        const filteredQuestions = this.filterQuestions();
+        let filteredQuestions = this.filterQuestions();
         if (filteredQuestions.length > 0) {
-            /* sorts the questions by timestamps ... the newest first */
+            // sorts the questions by timestamps ... the newest first
             const sortedQuestions = filteredQuestions.sort((a,b) => (a.timestamp - b.timestamp));
 
             return (
@@ -79,7 +81,8 @@ const mapStateToProps = (state) => {
         questions: state.questions.questions,
         wantedQuestionsList: state.questions.wantedQuestionsList,
         questionsListStatus: state.questions.questionsListStatus,
-        loggedInUser: state.users.loggedInUser
+        loggedInUser: state.users.loggedInUser,
+        users: state.users.users
     };
 };
 
