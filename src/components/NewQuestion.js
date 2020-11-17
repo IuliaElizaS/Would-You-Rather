@@ -25,8 +25,8 @@ class NewQuestion extends React.Component {
   }
 
   render (){
-    if (this.props.logedInUser === '') {
-      alert('You are not loged in. Please log in.');
+    if (this.props.loggedInUser === '') {
+      alert('You are not logged in. Please log in.');
       return(
         <Redirect to= {{
           pathname: '/login',
@@ -53,7 +53,7 @@ class NewQuestion extends React.Component {
 const mapStateToProps = (state) => {
   return {
     questions: state.questions.questions,
-    logedInUser: state.users.logedInUser,
+    loggedInUser: state.users.loggedInUser,
   };
 };
 

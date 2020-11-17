@@ -17,7 +17,6 @@ class App extends React.Component {
   componentDidMount(){
     this.props.dispatch(setInitialUsersState());
     this.props.dispatch(setInitialQuestionsState());
-    console.log(`initial state is: ${this.props.state}`);
   }
 
   render (){
@@ -46,10 +45,4 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    state: state
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);

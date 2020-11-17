@@ -1,4 +1,4 @@
-import {ADD_USERS_TO_STATE, SET_LOGGED_IN_USER, LOG_OUT_USER, ADD_SCORE_TO_USER_OBJ, UPDATE_USER_QUESTIONS, UPDATE_USER_ANSWERS, UPDATE_USER_SCORE} from '../actions/userA';
+import {ADD_USERS_TO_STATE, SET_LOGGED_IN_USER, LOG_OUT_USER, ADD_SCORE_TO_USER_OBJ, UPDATE_USER_QUESTIONS, UPDATE_USER_ANSWERS} from '../actions/userA';
 
 export const usersR = (state = {}, action) => {
     switch (action.type) {
@@ -8,10 +8,9 @@ export const usersR = (state = {}, action) => {
         users: action.payload
       };
     case SET_LOGGED_IN_USER:
-      let loggedId = action.payload;
       return {
       ...state,
-      loggedInUser: state.users[loggedId]
+        loggedInUser: action.payload
       };
     case LOG_OUT_USER:
       return {
@@ -64,20 +63,6 @@ export const usersR = (state = {}, action) => {
           }
         }
       };
-   /* case UPDATE_USER_SCORE:
-      const userid = action.payload;
-      const newScore = state.users[userid].score + 1;
-
-      return {
-        ...state,
-        users: {
-          ...state.users,
-          [userid]:{
-          ...state.users[userid],
-          score: newScore
-          }
-        }
-      }; */
     default:
       return state;
 }}

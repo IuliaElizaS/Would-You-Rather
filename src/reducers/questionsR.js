@@ -51,8 +51,8 @@ export const questionsR = (state = {}, action) => {
     case SET_CURRENT_QUESTION:
       return {
         ...state,
-        currentQuestion: state.questions[action.payload],
-        };
+        currentQuestion: action.payload
+      };
     default:
       return state;
   }

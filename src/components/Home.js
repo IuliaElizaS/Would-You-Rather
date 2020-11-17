@@ -9,14 +9,6 @@ import '../style/App.css';
 
 class Home extends React.Component {
 
-  /* componentDidUpdate(prevProps) {
-        
-    console.log('component should update');
-    console.log(`prev path is: ${prevProps.location.pathname}`);
-    console.log(`current path is: ${this.props.location.pathname}`);
-    //forceUpdate(); - genereaza loop si eroare
-} */
-
   render (){
     //checks if the user is  logged in
     if (this.props.loggedInUser) {

@@ -21,8 +21,8 @@ class QuestionsList extends React.Component {
     filterQuestions = () => {
         let filteredQuestArr;
         let questionsArr = Object.values(this.props.questions);
-        console.log(`questionsArr: ${questionsArr}`);
-        let userAnsweredQ = this.props.users[this.props.loggedInUser.id].answers;
+        let currentUser = this.props.users[this.props.loggedInUser];
+        let userAnsweredQ = currentUser.answers;
 
         if (this.props.wantedQuestionsList === 'unansweredQuestions') {
             filteredQuestArr = questionsArr.filter((question) => {
@@ -36,7 +36,7 @@ class QuestionsList extends React.Component {
         return filteredQuestArr;
     }
 
-   componentDidMount(){
+  componentDidMount(){
         if (this.props.questionsListStatus === 'shouldChange') {
           console.log('should re render');
           this.props.dispatch(setQuestionsListStatus('listChanged'));

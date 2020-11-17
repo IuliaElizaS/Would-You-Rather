@@ -20,4 +20,5 @@ The starter code consist of a _DATA.js file, which represents a fake database an
 ## Sources
 the starter code: Udacity
 
-images: https://www.pixabay.com/; 
+images: https://www.pixabay.com/;
+        https://www.flaticon.com/

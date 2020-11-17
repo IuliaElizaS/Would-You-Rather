@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect } from 'react-router-dom';
 import {logOutUser} from '../actions/userA';
-import {setWantedQuestionsList} from '../actions/questionA';
 import sarahEdoAvatar from '../utils/PixabayAvatars/user-310807_640.png';
 import tylerMcginnisAvatar from '../utils/PixabayAvatars/man-3357275_640.png';
 import johnDoeAvatar from '../utils/PixabayAvatars/avatar-1300331_640.png';
@@ -14,7 +13,6 @@ class UserBar extends React.Component {
   logOut = () => {
     alert('You will be logged out. Please come back soon.');
     this.props.dispatch(logOutUser());
-    this.props.dispatch(setWantedQuestionsList([]))
     return(
       <Redirect to= {{
         pathname: '/login',
@@ -29,8 +27,11 @@ class UserBar extends React.Component {
         tylermcginnis : tylerMcginnisAvatar,
         johndoe : johnDoeAvatar
       };
-      const user = this.props.loggedInUser;
-      const userId = this.props.loggedInUser.id;
+      //const user = this.props.loggedInUser;
+      //const userId = this.props.loggedInUser.id;
+      //const userAvatar = avatarURLs[userId];
+      const userId = this.props.loggedInUser;
+      const user = this.props.users[userId];
       const userAvatar = avatarURLs[userId];
 
       return (
@@ -49,6 +50,7 @@ class UserBar extends React.Component {
 const mapStateToProps = (state) => {
   return {
     loggedInUser: state.users.loggedInUser,
+    users: state.users.users
   };
 };
 
