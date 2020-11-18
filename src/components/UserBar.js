@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Redirect } from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 import {logOutUser} from '../actions/userA';
 import sarahEdoAvatar from '../utils/PixabayAvatars/user-310807_640.png';
 import tylerMcginnisAvatar from '../utils/PixabayAvatars/man-3357275_640.png';
@@ -13,33 +13,28 @@ class UserBar extends React.Component {
   logOut = () => {
     alert('You will be logged out. Please come back soon.');
     this.props.dispatch(logOutUser());
-    return(
-      <Redirect to= {{
-        pathname: '/login',
-        }}/>
-    );
+    this.props.history.push("/login");
   }
 
   render (){
-    if (this.props.loggedInUser) {
+    if (this.props.loggedInUser && this.props.loggedInUser !=='') {
       const avatarURLs = {
         sarahedo : sarahEdoAvatar,
         tylermcginnis : tylerMcginnisAvatar,
         johndoe : johnDoeAvatar
       };
-      //const user = this.props.loggedInUser;
-      //const userId = this.props.loggedInUser.id;
-      //const userAvatar = avatarURLs[userId];
       const userId = this.props.loggedInUser;
       const user = this.props.users[userId];
       const userAvatar = avatarURLs[userId];
 
       return (
+        <withRouter>
         <div className="userBar">
           <img className="avatarImg" src={userAvatar}  alt="userAvatar"></img>
           <div className="userName">{user.name}</div>
           <button className="logOutBtn" onClick={this.logOut}>Log out</button>
         </div>
+        </withRouter>
       )
     }else{
       return(null);
@@ -54,4 +49,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(UserBar);
+export default connect(mapStateToProps)(withRouter(UserBar));

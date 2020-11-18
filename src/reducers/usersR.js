@@ -15,7 +15,7 @@ export const usersR = (state = {}, action) => {
     case LOG_OUT_USER:
       return {
       ...state,
-      loggedInUser: {},
+      loggedInUser: '',
       };
     case ADD_SCORE_TO_USER_OBJ:
       return {
