@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import {saveQuestion} from '../middleware/middleware';
 import Header from './Header';
 import Footer from './Footer';
+import Swal from 'sweetalert2';
 import '../style/App.css';
 
 
@@ -22,7 +23,21 @@ class NewQuestion extends React.Component {
     };
 
     this.props.dispatch(saveQuestion(newQuestion));
-    alert('your question was saved');
+
+    //alerts the user
+    Swal.fire({
+      title: 'Your question was saved!',
+      icon: 'success',
+      timer: 2500,
+    });
+
+    this.clearInput(option1, option2);
+  }
+
+  //clears the input boxes
+  clearInput = (option1, option2) => {
+    option1.value = '';
+    option2.value = '';
   }
 
   render (){

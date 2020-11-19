@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {saveAnswer} from '../middleware/middleware';
 import {addAnswerToState, setQuestionsListStatus} from '../actions/questionA';
 import {updateUserAnswers} from '../actions/userA';
+import Swal from 'sweetalert2';
 import '../style/App.css';
 
 class UnAnsweredQuestion extends React.Component {
@@ -14,13 +15,21 @@ class UnAnsweredQuestion extends React.Component {
         const optionTwoCheckbox = document.getElementById('optionTwo');
 
         if (optionOneCheckbox.checked && optionTwoCheckbox.checked) {
-        alert('You can choose only one answer');
+            Swal.fire({
+                title: 'You can choose only one answer.',
+                icon: 'warning',
+                timer: 2500,
+            });
         } else if ( !optionOneCheckbox.checked && !optionTwoCheckbox.checked) {
-        alert('You must choose one answer and check it');
+            Swal.fire({
+                title: 'You must choose one answer and check it.',
+                icon: 'warning',
+                timer: 2500,
+            });
         } else if ( optionOneCheckbox.checked && !optionTwoCheckbox.checked) {
-        this.saveVote('optionOne');
+            this.saveVote('optionOne');
         } else if ( !optionOneCheckbox.checked && optionTwoCheckbox.checked) {
-        this.saveVote('optionTwo');
+            this.saveVote('optionTwo');
         }
     }
 
@@ -36,7 +45,12 @@ class UnAnsweredQuestion extends React.Component {
         this.props.dispatch(addAnswerToState(answer));
         this.props.dispatch(updateUserAnswers(answer));
         this.props.dispatch(setQuestionsListStatus('shouldChange'));
-        alert('Your answer was saved.');
+
+        Swal.fire({
+            title: 'Your answer was saved.',
+            icon: 'success',
+            timer: 2500,
+        });
     }
 
     render () {

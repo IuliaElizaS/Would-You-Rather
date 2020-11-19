@@ -6,6 +6,7 @@ import UserBar from './UserBar';
 import Footer from './Footer';
 import UnAnsweredQuestion from './UnAnsweredQuestion';
 import AnsweredQuestion from './AnsweredQuestion';
+import Swal from 'sweetalert2';
 import sarahEdoAvatar from '../utils/PixabayAvatars/user-310807_640.png';
 import tylerMcginnisAvatar from '../utils/PixabayAvatars/man-3357275_640.png';
 import johnDoeAvatar from '../utils/PixabayAvatars/avatar-1300331_640.png';
@@ -14,7 +15,11 @@ import '../style/App.css';
 class Question extends React.Component {
   render (){
     if (this.props.loggedInUser === '') {
-      alert('You are not logged in. Please log in.');
+      Swal.fire({
+        title: 'You are not logged in. Please log in!',
+        icon: 'warning',
+        timer: 2500,
+      });
       return(
           <Redirect to= {{
           pathname: '/login',

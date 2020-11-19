@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {setLoggedInUser} from '../actions/userA';
+import Swal from 'sweetalert2';
 import '../style/App.css';
 
 
@@ -43,7 +44,11 @@ class LogIn extends React.Component {
       //redirects to home page or to the page he was before
       this.redirectUser();
     } else{
-      alert('please select your name');
+      Swal.fire({
+        title: 'Please select your name.',
+        icon: 'warning',
+        timer: 2500,
+      });
     }
   }
 

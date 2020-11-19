@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter } from 'react-router-dom';
 import {logOutUser} from '../actions/userA';
+import Swal from 'sweetalert2';
 import sarahEdoAvatar from '../utils/PixabayAvatars/user-310807_640.png';
 import tylerMcginnisAvatar from '../utils/PixabayAvatars/man-3357275_640.png';
 import johnDoeAvatar from '../utils/PixabayAvatars/avatar-1300331_640.png';
@@ -11,9 +12,18 @@ import '../style/App.css';
 
 class UserBar extends React.Component {
   logOut = () => {
-    alert('You will be logged out. Please come back soon.');
-    this.props.dispatch(logOutUser());
-    this.props.history.push("/login");
+    Swal.fire({
+      title: 'You will be logged out. Are you sure you want to do this?',
+      icon: 'question',
+      showDenyButton: true,
+      confirmButtonText: `Log out`,
+      denyButtonText: `Stay logged in`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.props.dispatch(logOutUser());
+        this.props.history.push("/login");
+      }
+    });
   }
 
   render (){

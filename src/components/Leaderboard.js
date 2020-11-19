@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import {addScoreToUserObj} from '../actions/userA';
+import Swal from 'sweetalert2';
 import sarahEdoAvatar from '../utils/PixabayAvatars/user-310807_640.png';
 import tylerMcginnisAvatar from '../utils/PixabayAvatars/man-3357275_640.png';
 import johnDoeAvatar from '../utils/PixabayAvatars/avatar-1300331_640.png';
@@ -36,7 +37,12 @@ class Leaderboard extends React.Component {
   render() {
     //let currentLeaderBoard = this.usersLeaderboard();
     if (this.props.loggedInUser === '') {
-      alert('You are not logged in. Please log in.');
+      //alerts the user
+      Swal.fire({
+        title: 'You are not logged in. Please log in!',
+        icon: 'success',
+        timer: 2500,
+      });
       return (
         <Redirect to={{
             pathname: '/login',
