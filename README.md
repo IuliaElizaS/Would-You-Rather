@@ -21,4 +21,5 @@ The starter code consist of a _DATA.js file, which represents a fake database an
 the starter code: Udacity
 
 images: https://www.pixabay.com/;
-        https://www.flaticon.com/
+        https://www.flaticon.com/;
+ - Log In page : https://pixabay.com/ro/illustrations/semn-de-%C3%AEntrebare-not%C4%83-duplicat-2110767/

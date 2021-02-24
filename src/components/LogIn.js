@@ -2,8 +2,91 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {setLoggedInUser} from '../actions/userA';
 import Swal from 'sweetalert2';
-import '../style/App.css';
+import styled from 'styled-components';
 
+const Container = styled.div `
+  width: 95vw;
+  height: 95vh;
+  margin: auto;
+  padding-top: 10%;
+  font-size: 16px;
+  @media screen and (min-width: 760px){
+    font-size: 20px;
+  };
+  @media screen and (min-width: 950px){
+    font-size: 22px;
+  };
+`
+const Image = styled.img `
+  width: 95%;
+  height: auto;
+  margin: auto;
+  @media screen and (min-width: 420px){
+    width: 80%;
+  };
+  @media screen and (min-width: 950px){
+    width: 40%;
+    float: left;
+  };
+`
+const Title = styled.h1 `
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5em;
+  color: #005753; 
+  @media screen and (min-width: 760px){
+    font-size: 1.7em;
+  };
+`
+const LogInForm = styled.form `
+  font-family: 'Josefin Sans', sans-serif;
+  width: 85%;
+  margin: auto;
+  @media screen and (min-width: 950px){
+    width: 50%;
+    float: right;
+    margin-right: 2%;
+  };
+`
+const InfoText = styled.p `
+  padding: 2em;
+  margin: 1% auto;
+  text-align: justify;
+`
+const UsersDropdown = styled.select `
+  display: block;
+  width: 80%;
+  height: 2.5em;
+  border-radius: 5px;
+  border-color: #007FFF;
+  padding: 0.25em;
+  margin: auto;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1em;
+  color: #005753;
+`
+const Button = styled.button `
+  width: auto;
+  height: 2em;
+  border-color: #007FFF;
+  border-radius: 5px;
+  text-align: center;
+  padding: 0.25em;
+  margin: 10% auto;
+  &:hover{
+    border-color: #FF4500;
+  }
+  @media screen and (min-width: 760px){
+    width: 40%;
+  };
+  @media screen and (min-width: 950px){
+    width: 30%;@media screen and (min-width: 950px){
+    width: 30%;
+  };@media screen and (min-width: 950px){
+    width: 30%;
+    width: 30%;
+  };
+  };
+`
 
 class LogIn extends React.Component {
 
@@ -55,14 +138,12 @@ class LogIn extends React.Component {
   render (){
     if (this.props.users){
     return (
-      <div className="logIn">
-        <div className="leftImg">
-          <img src="img\question-mark-1421013_640.png" alt="question marks"></img>
-        </div>
-        <h1 className="title"> Would you rather ... </h1>
-        <form className="logInform" onSubmit={this.logInUser}>
-            <p className="infoText"> Welcome to the game. Please select your name from the list below and click on Log In button</p>
-            <select id="userDropdown" defaultValue="text" onChange={this.setUserId}>
+      <Container>
+        <Image src="img\question-mark-2110767_640.jpg" alt="question marks"></Image>
+        <Title> Would you rather ... </Title>
+        <LogInForm onSubmit={this.logInUser}>
+            <InfoText> Welcome to the game. Please select your name from the list below and click on Log In button</InfoText>
+            <UsersDropdown defaultValue="text" onChange={this.setUserId}>
               <option value="text" disabled>Please select your name</option>
               {//generates an entry for each user from the users object
               Object.entries(this.props.users).map( user => {
@@ -71,10 +152,10 @@ class LogIn extends React.Component {
                 );
               })
             }
-            </select>
-            <button type="submit" className="logInBtn">Log In</button>
-        </form>
-      </div>
+            </UsersDropdown>
+            <Button type="submit" className="logInBtn">Log In</Button>
+        </LogInForm>
+      </Container>
     )
   }else{
     return null;
