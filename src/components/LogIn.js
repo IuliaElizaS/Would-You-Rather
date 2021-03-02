@@ -6,9 +6,8 @@ import styled from 'styled-components';
 
 const Container = styled.div `
   width: 95vw;
-  height: 95vh;
   margin: auto;
-  padding-top: 10%;
+  padding-top: 5%;
   font-size: 16px;
   @media screen and (min-width: 760px){
     font-size: 20px;
@@ -18,21 +17,21 @@ const Container = styled.div `
   };
 `
 const Image = styled.img `
-  width: 95%;
+  width: 80%;
   height: auto;
   margin: auto;
   @media screen and (min-width: 420px){
-    width: 80%;
+    width: 70%;
   };
-  @media screen and (min-width: 950px){
-    width: 40%;
+  @media screen and (min-width: 760px){
+    width: 45%;
     float: left;
   };
 `
 const Title = styled.h1 `
   font-family: 'Dancing Script', cursive;
   font-size: 1.5em;
-  color: #005753; 
+  color: #005753;
   @media screen and (min-width: 760px){
     font-size: 1.7em;
   };
@@ -49,7 +48,7 @@ const LogInForm = styled.form `
 `
 const InfoText = styled.p `
   padding: 2em;
-  margin: 1% auto;
+  margin: 1em auto;
   text-align: justify;
 `
 const UsersDropdown = styled.select `
@@ -57,35 +56,40 @@ const UsersDropdown = styled.select `
   width: 80%;
   height: 2.5em;
   border-radius: 5px;
-  border-color: #007FFF;
+  border: 0.25em double #005753;
   padding: 0.25em;
   margin: auto;
   font-family: 'Josefin Sans', sans-serif;
   font-size: 1em;
-  color: #005753;
+  &:hover{
+    border-color: #FF2400;
+  };
+  &:focus {
+    border-color: #FF2400;
+  };
 `
 const Button = styled.button `
   width: auto;
   height: 2em;
-  border-color: #007FFF;
+  border: 0.15em solid #005753;
+  background-color: #FF2400;
   border-radius: 5px;
   text-align: center;
+  color: #FFF;
   padding: 0.25em;
-  margin: 10% auto;
+  margin: 1em auto;
   &:hover{
-    border-color: #FF4500;
-  }
+    border-color: #007FFF;
+  };
+  &:focus {
+    border-color: #FF2400;
+  };
   @media screen and (min-width: 760px){
     width: 40%;
   };
-  @media screen and (min-width: 950px){
-    width: 30%;@media screen and (min-width: 950px){
+ @media screen and (min-width: 950px){
     width: 30%;
-  };@media screen and (min-width: 950px){
-    width: 30%;
-    width: 30%;
-  };
-  };
+};
 `
 
 class LogIn extends React.Component {
@@ -130,6 +134,8 @@ class LogIn extends React.Component {
       Swal.fire({
         title: 'Please select your name.',
         icon: 'warning',
+        iconColor: '#FF2400' ,
+        confirmButtonColor: '#007FFF' ,
         timer: 2500,
       });
     }

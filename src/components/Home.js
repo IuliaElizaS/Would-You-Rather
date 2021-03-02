@@ -5,7 +5,30 @@ import Header from './Header';
 import QuestionsListChanger from './QuestionsListChanger';
 import QuestionsList from './QuestionsList';
 import Footer from './Footer';
-import '../style/App.css';
+import styled from 'styled-components';
+
+const TopContainer = styled.div `
+  width: 95vw;
+  height: 95vh;
+  margin: auto;
+
+  @media screen and (min-width: 760px){
+    
+  };
+  @media screen and (min-width: 950px){
+    
+  };
+`
+const Section = styled.section `
+  width: 95vw;
+  min-height: 60vh;
+  margin: auto;
+  @media screen and (min-width: 760px){
+
+  };
+  @media screen and (min-width: 950px){
+  };
+`
 
 class Home extends React.Component {
 
@@ -13,16 +36,16 @@ class Home extends React.Component {
     //checks if the user is  logged in
     if (this.props.loggedInUser) {
       return (
-        <div>
+        <TopContainer>
           <Header/>
           <React.Fragment>
-            <main className='mainContainer'>
+            <Section>
               <QuestionsListChanger/>
               <QuestionsList/>
-            </main>
+            </Section>
           </React.Fragment>
           <Footer/>
-        </div>
+        </TopContainer>
       )
     } else {
       return (

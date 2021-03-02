@@ -6,8 +6,49 @@ import Swal from 'sweetalert2';
 import sarahEdoAvatar from '../utils/PixabayAvatars/user-310807_640.png';
 import tylerMcginnisAvatar from '../utils/PixabayAvatars/man-3357275_640.png';
 import johnDoeAvatar from '../utils/PixabayAvatars/avatar-1300331_640.png';
-import '../style/App.css';
+import styled from 'styled-components';
 
+const LoggedInUserBar = styled.div `
+  height: 3em;
+  margin: auto;
+  @media screen and (min-width: 760px){
+    margin: auto 0 auto auto;
+  };
+`
+const Name = styled.h3 `
+  display: inline-block;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2em;
+  color: #005753;
+  padding: 0.25em;
+  margin: auto 1em;
+  @media screen and (min-width: 760px){
+    font-size: 1.3em;
+  };
+`
+const Image = styled.img `
+  display: inline-block;
+  height: 60%;
+  margin: auto;
+`
+const Button = styled.button `
+  display: inline-block;
+  width: 70px;
+  height: 1.6em;
+  border: 0.1em solid #005753;
+  background-color: #FF2400;
+  border-radius: 5px;
+  text-align: center;
+  color: #FFF;
+  padding: 0.25em;
+  margin: auto;
+  &:hover{
+    border-color: #007FFF;
+  };
+  &:focus {
+    border-color: #FF2400;
+  };
+`
 
 
 class UserBar extends React.Component {
@@ -15,9 +56,12 @@ class UserBar extends React.Component {
     Swal.fire({
       title: 'You will be logged out. Are you sure you want to do this?',
       icon: 'question',
+      iconColor: '#FF2400',
       showDenyButton: true,
       confirmButtonText: `Log out`,
+      confirmButtonColor: '#007FFF',
       denyButtonText: `Stay logged in`,
+      denyButtonColor: '#007FFF',
     }).then((result) => {
       if (result.isConfirmed) {
         this.props.dispatch(logOutUser());
@@ -39,11 +83,11 @@ class UserBar extends React.Component {
 
       return (
         <withRouter>
-        <div className="userBar">
-          <img className="avatarImg" src={userAvatar}  alt="userAvatar"></img>
-          <div className="userName">{user.name}</div>
-          <button className="logOutBtn" onClick={this.logOut}>Log out</button>
-        </div>
+          <LoggedInUserBar>
+            <Image src={userAvatar}  alt="userAvatar"></Image>
+            <Name>{user.name}</Name>
+            <Button onClick={this.logOut}>Log out</Button>
+          </LoggedInUserBar>
         </withRouter>
       )
     }else{
