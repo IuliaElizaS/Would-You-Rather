@@ -10,7 +10,6 @@ import Leaderboard from './Leaderboard';
 import NewQuestion from './NewQuestion';
 import Question from './Question';
 import NoMatch from './NoMatch';
-//import '../style/App.css';
 
 class App extends React.Component {
 

@@ -7,27 +7,8 @@ import QuestionsList from './QuestionsList';
 import Footer from './Footer';
 import styled from 'styled-components';
 
-const TopContainer = styled.div `
-  width: 95vw;
-  height: 95vh;
-  margin: auto;
-
-  @media screen and (min-width: 760px){
-    
-  };
-  @media screen and (min-width: 950px){
-    
-  };
-`
 const Section = styled.section `
-  width: 95vw;
-  min-height: 60vh;
-  margin: auto;
-  @media screen and (min-width: 760px){
-
-  };
-  @media screen and (min-width: 950px){
-  };
+  margin: 2em 1em;
 `
 
 class Home extends React.Component {
@@ -36,16 +17,14 @@ class Home extends React.Component {
     //checks if the user is  logged in
     if (this.props.loggedInUser) {
       return (
-        <TopContainer>
+        <React.Fragment>
           <Header/>
-          <React.Fragment>
-            <Section>
-              <QuestionsListChanger/>
-              <QuestionsList/>
-            </Section>
-          </React.Fragment>
+          <Section>
+            <QuestionsListChanger/>
+            <QuestionsList/>
+          </Section>
           <Footer/>
-        </TopContainer>
+        </React.Fragment>
       )
     } else {
       return (

@@ -8,7 +8,78 @@ import Swal from 'sweetalert2';
 import sarahEdoAvatar from '../utils/PixabayAvatars/user-310807_640.png';
 import tylerMcginnisAvatar from '../utils/PixabayAvatars/man-3357275_640.png';
 import johnDoeAvatar from '../utils/PixabayAvatars/avatar-1300331_640.png';
-import '../style/App.css';
+import styled from 'styled-components';
+
+const Board = styled.ul `
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+`
+const UserCard = styled.li `
+  display: flex;
+  width: 85%;
+  height: 130px;
+  border: 3px solid #005753;
+  border-radius: 5px;
+  margin: 0.5em auto;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.9em;
+  &:hover{
+    border-color: #d3281c;
+  };
+  &:focus {
+    border-color: #d3281c;
+  };
+  @media screen and (min-width: 760px){
+    font-size: 1.1em;
+  };
+  @media screen and (min-width: 950px){
+    font-size: 1.2em;
+  };
+`
+const User = styled.div `
+  width: 30%;
+  margin: auto;
+`
+const ProfileName = styled.h3 `
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2em;
+  color: #005753;
+  padding: 0.25em;
+  margin: auto;
+  text-align: center;
+  @media screen and (min-width: 760px){
+    font-size: 1.3em;
+  };
+`
+const ProfileImage = styled.img `
+  height: 50px;
+  width: auto;
+  margin: auto;
+`
+const ScoreContainer = styled.div `
+  width: 60%;
+  /*height: 140px;*/
+  margin: auto;
+`
+const Item = styled.p `
+  width: 95%;
+  border: 1px solid #007FFF;
+  border-radius: 5px;
+  margin: 0.25em auto;
+`
+const Score = styled.span `
+  font-size: 1.2em;
+  color:#005753;
+`
+const TotalScore = styled(Score) `
+  color: #d3281c;
+`
+const AdaptedFooter = styled(Footer) `
+  position: static;
+`
+
 class Leaderboard extends React.Component {
   //sorts the users according to their score
   usersLeaderboard = () => {
@@ -41,6 +112,8 @@ class Leaderboard extends React.Component {
       Swal.fire({
         title: 'You are not logged in. Please log in!',
         icon: 'success',
+        iconColor: '#d3281c' ,
+        confirmButtonColor: '#007FFF' ,
         timer: 2500,
       });
       return (
@@ -60,34 +133,32 @@ class Leaderboard extends React.Component {
       return (
         <React.Fragment>
           <Header/>
-          <main className="leaderboard">
-            <ul className="list">
-              {/* sorts the users by score and generates user card */}
-              {currentLeaderBoard.map(user => {
-                return (
-                  <li className="card" key={user.id}>
-                    <div className="user">
-                      <img className="userImg" src={avatarURLs[user.id]} alt="userAvatar"/>
-                      <div className="userName">{user.name}</div>
-                    </div>
-                    <div className="scoreContainer">
-                      <p className="item"> Answered questions:
-                        <span className="spanItem"> {Object.keys(user.answers).length}</span>
-                      </p>
-                      <p className="item"> Created questions:
-                        <span className="spanItem"> {user.questions.length}</span>
-                      </p>
-                      <p className="score"> Score:
-                        <span className="totalScore"> {user.score}</span>
-                      </p>
-                    </div>
-                  </li>
-                )
-              })
-              }
-            </ul>
-          </main>
-          <Footer/>
+          <Board>
+            {/* sorts the users by score and generates user card */}
+            {currentLeaderBoard.map(user => {
+              return (
+                <UserCard key={user.id}>
+                  <User>
+                    <ProfileImage className="userImg" src={avatarURLs[user.id]} alt="userAvatar"/>
+                    <ProfileName className="userName">{user.name}</ProfileName>
+                  </User>
+                  <ScoreContainer>
+                    <Item> Answered questions:
+                      <Score> {Object.keys(user.answers).length}</Score>
+                    </Item>
+                    <Item> Created questions:
+                      <Score> {user.questions.length}</Score>
+                    </Item>
+                    <Item> Score:
+                      <TotalScore> {user.score}</TotalScore>
+                    </Item>
+                  </ScoreContainer>
+                </UserCard>
+              )
+            })
+          }
+          </Board>
+          <AdaptedFooter/>
         </React.Fragment>
       )
     }

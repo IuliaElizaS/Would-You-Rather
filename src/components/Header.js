@@ -5,10 +5,11 @@ import styled from 'styled-components';
 
 const Container = styled.div `
   width: 95vw;
-  max-height: 25vh;
   margin: auto;
+  flex-grow: 1;
 `
 const Title = styled.h2 `
+  font-family: 'Dancing Script', cursive;
   font-size: 1.5em;
   color: #005753;
   padding: 0.25em;
@@ -21,7 +22,7 @@ const BreakLine = styled.div `
   width: 95vw;
   height: 0.25em;
   margin: 0.3em auto;
-  background: linear-gradient(150deg, #005753, #517100, #ff2400);
+  background: linear-gradient(150deg, #005753, #517100, #d3281c);
   border-radius: 5px;
   @media screen and (min-width: 760px){
     height: 0.30em;
@@ -33,7 +34,7 @@ const Section = styled.section `
   flex-direction: column;
   justify-content: space-between;
   width: 95vw;
-  margin: auto;
+  margin: 1em auto;
   @media screen and (min-width: 760px){
     flex-direction: row-reverse;
   };
@@ -42,7 +43,7 @@ class Header extends React.Component {
     render (){
       return (
         <Container>
-            <Title>Would You Rather ...</Title>
+            <Title>WOULD YOU RATHER ...</Title>
             <BreakLine></BreakLine>
             <Section>
               <UserBar/>

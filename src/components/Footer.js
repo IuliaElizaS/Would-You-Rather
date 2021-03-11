@@ -1,12 +1,24 @@
 import React from 'react';
-import '../style/App.css';
+import styled from 'styled-components';
 
+const PageFooter = styled.div `
+  width: 95%;
+  margin: 2em auto 0 auto;
+  position: absolute;
+  bottom: 0px;
+`
+const Signature = styled.div `
+  font-family: 'Dancing Script', cursive;
+  font-size: 1em;
+  padding: 0.25em;
+  margin: 0 auto;
+`
 class Footer extends React.Component {
   render (){
     return (
-      <div className="pageFooter">
-        <p className="signiture"> &#169; IuliaElizaS 2020</p>
-      </div>
+      <PageFooter>
+        <Signature> &#169; IuliaElizaS 2020</Signature>
+      </PageFooter>
     )
   }
 }

@@ -33,10 +33,9 @@ const Image = styled.img `
 `
 const Button = styled.button `
   display: inline-block;
-  width: 70px;
-  height: 1.6em;
-  border: 0.1em solid #005753;
-  background-color: #FF2400;
+  height: 1.8em;
+  border: 0.15em solid #005753;
+  background-color: #d3281c;
   border-radius: 5px;
   text-align: center;
   color: #FFF;
@@ -46,7 +45,7 @@ const Button = styled.button `
     border-color: #007FFF;
   };
   &:focus {
-    border-color: #FF2400;
+    border-color: #007FFF;
   };
 `
 
@@ -56,12 +55,12 @@ class UserBar extends React.Component {
     Swal.fire({
       title: 'You will be logged out. Are you sure you want to do this?',
       icon: 'question',
-      iconColor: '#FF2400',
+      iconColor: '#517100',
       showDenyButton: true,
       confirmButtonText: `Log out`,
       confirmButtonColor: '#007FFF',
       denyButtonText: `Stay logged in`,
-      denyButtonColor: '#007FFF',
+      denyButtonColor: '#d3281c',
     }).then((result) => {
       if (result.isConfirmed) {
         this.props.dispatch(logOutUser());
@@ -84,7 +83,7 @@ class UserBar extends React.Component {
       return (
         <withRouter>
           <LoggedInUserBar>
-            <Image src={userAvatar}  alt="userAvatar"></Image>
+            <Image src={userAvatar}  alt="userAvatar"/>
             <Name>{user.name}</Name>
             <Button onClick={this.logOut}>Log out</Button>
           </LoggedInUserBar>

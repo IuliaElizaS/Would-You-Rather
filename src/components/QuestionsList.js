@@ -3,8 +3,37 @@ import { connect } from 'react-redux';
 import {Route, NavLink, Redirect } from 'react-router-dom';
 import Question from './Question';
 import {setQuestionsListStatus, setCurrentQuestion} from '../actions/questionA';
-import '../style/App.css';
+import styled from 'styled-components';
 
+const ListContainer = styled.ol `
+  width: 100%;
+  margin: auto auto auto 0;
+  list-style-type: none;
+  padding: 0.25em;
+`
+const QuestionText = styled.li `
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.9em;
+  text-align: left;
+  padding: 0.3em 0;
+  @media screen and (min-width: 760px){
+    font-size: 1em;
+  };
+`
+const QuestionLink = styled(NavLink) `
+  text-decoration: none;
+  color: #000;
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: #007FFF;
+    text-decoration-thickness: 0.2em;
+  };
+  &:focus {
+    text-decoration: underline;
+    text-decoration-color: #007FFF;
+    text-decoration-thickness: 0.2em;
+  }
+`
 class QuestionsList extends React.Component {
 
     //adds to the Redux state the  current question
@@ -51,18 +80,18 @@ class QuestionsList extends React.Component {
 
             return (
                 <React.Fragment>
-                    <ol key={this.props.questionsListStatus} className="listContainer">
+                    <ListContainer key={this.props.questionsListStatus} className="listContainer">
                         {sortedQuestions.map((qObj, index) => {
                             return (
-                                <li className="question" key={index} onClick={() => this.setQuestion(qObj.id)}>
-                                    <NavLink to={`/questions/:${qObj.id}`}>
+                                <QuestionText key={index} onClick={() => this.setQuestion(qObj.id)}>
+                                    <QuestionLink to={`/questions/:${qObj.id}`}>
                                         Would you rather {qObj.optionOne.text} or {qObj.optionTwo.text}?
-                                    </NavLink>
-                                </li>
+                                    </QuestionLink>
+                                </QuestionText>
                             )
                         })
                         }
-                    </ol>
+                    </ListContainer>
                     <Route path="/questions/:id" component={Question} />
                 </React.Fragment>
             )

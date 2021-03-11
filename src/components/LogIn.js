@@ -2,18 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {setLoggedInUser} from '../actions/userA';
 import Swal from 'sweetalert2';
+import Footer from './Footer';
 import styled from 'styled-components';
 
 const Container = styled.div `
   width: 95vw;
   margin: auto;
   padding-top: 5%;
-  font-size: 16px;
+  font-size: 1em;
   @media screen and (min-width: 760px){
-    font-size: 20px;
+    font-size: 1.1em;
   };
   @media screen and (min-width: 950px){
-    font-size: 22px;
+    font-size: 1.2em;
   };
 `
 const Image = styled.img `
@@ -23,9 +24,13 @@ const Image = styled.img `
   @media screen and (min-width: 420px){
     width: 70%;
   };
+  @media screen and (min-width: 600px){
+    width: 55%;
+  };
   @media screen and (min-width: 760px){
     width: 45%;
     float: left;
+    margin-top: 3em;
   };
 `
 const Title = styled.h1 `
@@ -38,9 +43,8 @@ const Title = styled.h1 `
 `
 const LogInForm = styled.form `
   font-family: 'Josefin Sans', sans-serif;
-  width: 85%;
   margin: auto;
-  @media screen and (min-width: 950px){
+  @media screen and (min-width: 760px){
     width: 50%;
     float: right;
     margin-right: 2%;
@@ -56,23 +60,29 @@ const UsersDropdown = styled.select `
   width: 80%;
   height: 2.5em;
   border-radius: 5px;
-  border: 0.25em double #005753;
+  border: 0.2em solid #005753;
   padding: 0.25em;
   margin: auto;
   font-family: 'Josefin Sans', sans-serif;
   font-size: 1em;
   &:hover{
-    border-color: #FF2400;
+    border-color: #d3281c;
   };
   &:focus {
-    border-color: #FF2400;
+    border-color: #d3281c;
+  };
+  @media screen and (min-width: 640px){
+    width: 70%;
+  };
+  @media screen and (min-width: 950px){
+    width: 60%;
   };
 `
 const Button = styled.button `
   width: auto;
   height: 2em;
   border: 0.15em solid #005753;
-  background-color: #FF2400;
+  background-color: #d3281c;
   border-radius: 5px;
   text-align: center;
   color: #FFF;
@@ -82,14 +92,14 @@ const Button = styled.button `
     border-color: #007FFF;
   };
   &:focus {
-    border-color: #FF2400;
+    border-color: #007FFF;
   };
   @media screen and (min-width: 760px){
     width: 40%;
   };
- @media screen and (min-width: 950px){
+  @media screen and (min-width: 950px){
     width: 30%;
-};
+  };
 `
 
 class LogIn extends React.Component {
@@ -134,7 +144,7 @@ class LogIn extends React.Component {
       Swal.fire({
         title: 'Please select your name.',
         icon: 'warning',
-        iconColor: '#FF2400' ,
+        iconColor: '#d3281c' ,
         confirmButtonColor: '#007FFF' ,
         timer: 2500,
       });
@@ -145,8 +155,8 @@ class LogIn extends React.Component {
     if (this.props.users){
     return (
       <Container>
-        <Image src="img\question-mark-2110767_640.jpg" alt="question marks"></Image>
-        <Title> Would you rather ... </Title>
+        <Image src="img\question-mark-2110767_640.jpg" alt="question marks"/>
+        <Title> WOULD YOU RATHER ... </Title>
         <LogInForm onSubmit={this.logInUser}>
             <InfoText> Welcome to the game. Please select your name from the list below and click on Log In button</InfoText>
             <UsersDropdown defaultValue="text" onChange={this.setUserId}>
@@ -159,8 +169,9 @@ class LogIn extends React.Component {
               })
             }
             </UsersDropdown>
-            <Button type="submit" className="logInBtn">Log In</Button>
+            <Button type="submit">Log In</Button>
         </LogInForm>
+        <Footer/>
       </Container>
     )
   }else{
