@@ -5,21 +5,92 @@ import {saveQuestion} from '../middleware/middleware';
 import Header from './Header';
 import Footer from './Footer';
 import Swal from 'sweetalert2';
-import '../style/App.css';
+import styled from 'styled-components';
+
+const NewQuestionForm = styled.form `
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: space-between;
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+  border-radius: 5px;
+  margin: auto;
+`
+const Title = styled.h3 `
+  min-width: 95%;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5em;
+  color: #005753;
+  @media screen and (min-width: 760px){
+    font-size: 1.7em;
+  };
+`
+const AnswerOption = styled.input `
+  width: 95%;
+  display: block;
+  border: 2px solid #007FFF;
+  border-radius: 5px;
+  padding: 0.25em;
+  margin: 0.5em auto;
+  font-size: 1.1em;
+  &:hover{
+    border-color: #d3281c;
+  };
+  &:focus {
+    border-color: #d3281c;
+  };
+  @media screen and (min-width: 760px){
+    font-size: 1.3em;
+  };
+`
+const InfoText = styled.p `
+  font-size: 1em;
+  text-align: justify;
+  padding: 0.25em;
+  margin: 1em auto;
+`
+const Button = styled.button `
+  height: 1.8em;
+  border: 0.15em solid #005753;
+  background-color: #d3281c;
+  border-radius: 5px;
+  color: #FFF;
+  padding: 0.25em;
+  margin: auto;
+  &:hover{
+    border-color: #007FFF;
+  };
+  &:focus {
+    border-color: #007FFF;
+  };
+`
 
 
 class NewQuestion extends React.Component {
-
-  //save question to data base and updates the user
-  saveNewQuestion = () => {
+  //validates the new question form
+  validateQuestion = (e) => {
+    e.preventDefault();
     const option1 = document.getElementById('option1');
-    const option1text = option1.value;
     const option2 = document.getElementById('option2');
-    const option2text = option2.value;
+
+    if (option1.value === "" || option1.value === "") {
+      Swal.fire({
+          title: 'Please fill both answer boxes.',
+          icon: 'warning',
+          iconColor: '#d3281c'
+      });
+    } else {
+      this.saveNewQuestion(option1, option2);
+    }
+  }
+  //save question to data base and updates the user
+  saveNewQuestion = (option1, option2) => {
     const newQuestion = {
       author : this.props.loggedInUser,
-      optionOneText : option1text,
-      optionTwoText : option2text
+      optionOneText : option1.value,
+      optionTwoText : option2.value
     };
 
     this.props.dispatch(saveQuestion(newQuestion));
@@ -28,6 +99,7 @@ class NewQuestion extends React.Component {
     Swal.fire({
       title: 'Your question was saved!',
       icon: 'success',
+      iconColor: '#517100',
       timer: 2500,
     });
 
@@ -42,7 +114,13 @@ class NewQuestion extends React.Component {
 
   render (){
     if (this.props.loggedInUser === '') {
-      alert('You are not logged in. Please log in.');
+      //alerts the user
+      Swal.fire({
+        title: 'You are not logged in. Please log in!',
+        icon: 'warning',
+        iconColor: '#d3281c',
+        confirmButtonColor: '#007FFF'
+      });
       return(
         <Redirect to= {{
           pathname: '/login',
@@ -53,12 +131,13 @@ class NewQuestion extends React.Component {
       return (
         <React.Fragment>
           <Header/>
-          <form className='newQuestion'>
-            <h3 className="questionText"> Would you rather ... </h3>
-            <input id="option1" type="text" placeholder="option one"></input>
-            <input id="option2" type="text" placeholder="option two"></input>
-            <input type="button" id="saveBtn" value="Save question" onClick={this.saveNewQuestion}></input>
-          </form>
+          <NewQuestionForm onSubmit={this.validateQuestion}>
+            <Title>Would you rather ... </Title>
+            <InfoText>&#42; Please fill in your desired poll</InfoText>
+            <AnswerOption id="option1" type="text" name="firstOption" placeholder="first option"></AnswerOption>
+            <AnswerOption id="option2" type="text" name="secondOption" placeholder="second option"></AnswerOption>
+            <Button type="submit">Save</Button>
+          </NewQuestionForm>
           <Footer/>
         </React.Fragment>
       )

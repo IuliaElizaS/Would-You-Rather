@@ -15,6 +15,7 @@ const Board = styled.ul `
   margin: auto;
   display: flex;
   flex-direction: column;
+  text-align: center;
 `
 const UserCard = styled.li `
   display: flex;
@@ -48,7 +49,6 @@ const ProfileName = styled.h3 `
   color: #005753;
   padding: 0.25em;
   margin: auto;
-  text-align: center;
   @media screen and (min-width: 760px){
     font-size: 1.3em;
   };
@@ -60,7 +60,6 @@ const ProfileImage = styled.img `
 `
 const ScoreContainer = styled.div `
   width: 60%;
-  /*height: 140px;*/
   margin: auto;
 `
 const Item = styled.p `
@@ -77,7 +76,7 @@ const TotalScore = styled(Score) `
   color: #d3281c;
 `
 const AdaptedFooter = styled(Footer) `
-  position: static;
+  position: relative;
 `
 
 class Leaderboard extends React.Component {
@@ -111,10 +110,9 @@ class Leaderboard extends React.Component {
       //alerts the user
       Swal.fire({
         title: 'You are not logged in. Please log in!',
-        icon: 'success',
+        icon: 'warning',
         iconColor: '#d3281c' ,
-        confirmButtonColor: '#007FFF' ,
-        timer: 2500,
+        confirmButtonColor: '#007FFF'
       });
       return (
         <Redirect to={{

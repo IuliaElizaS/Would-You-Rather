@@ -12,6 +12,7 @@ const Title = styled.h2 `
   font-family: 'Dancing Script', cursive;
   font-size: 1.5em;
   color: #005753;
+  text-align: center;
   padding: 0.25em;
   margin: 0.5em auto;
   @media screen and (min-width: 760px){

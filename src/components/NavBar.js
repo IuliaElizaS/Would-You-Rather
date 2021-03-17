@@ -6,6 +6,7 @@ const NavigationBar = styled.div `
   max-width: 90%;
   height: 3em;
   margin: auto;
+  text-align: center;
   align-self: baseline;
   @media screen and (min-width: 760px){
     margin: auto auto auto 0;

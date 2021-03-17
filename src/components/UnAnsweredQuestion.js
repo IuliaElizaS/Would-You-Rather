@@ -10,6 +10,7 @@ import styled from 'styled-components';
 const UnAnsweredQForm = styled.form `
   width: 95%;
   margin: 1em auto;
+  text-align: center;
 `
 const InsideContainer = styled.section `
   display: flex;
@@ -60,7 +61,6 @@ const Button = styled.button `
   border: 0.15em solid #005753;
   background-color: #d3281c;
   border-radius: 5px;
-  text-align: center;
   color: #FFF;
   padding: 0.25em;
   margin: auto;
@@ -76,29 +76,27 @@ class UnAnsweredQuestion extends React.Component {
 
   //validates the vote
     validateVote = (e) => {
-        e.preventDefault();
-        const optionOneCheckbox = document.getElementById('optionOne');
-        const optionTwoCheckbox = document.getElementById('optionTwo');
+      e.preventDefault();
+      const optionOneCheckbox = document.getElementById('optionOne');
+      const optionTwoCheckbox = document.getElementById('optionTwo');
 
-        if (optionOneCheckbox.checked && optionTwoCheckbox.checked) {
-            Swal.fire({
-                title: 'You can choose only one answer.',
-                icon: 'warning',
-                iconColor: '#d3281c',
-                timer: 2500,
-            });
-        } else if ( !optionOneCheckbox.checked && !optionTwoCheckbox.checked) {
-            Swal.fire({
-                title: 'You must choose one answer and check it.',
-                icon: 'warning',
-                iconColor: '#d3281c',
-                timer: 2500,
-            });
-        } else if ( optionOneCheckbox.checked && !optionTwoCheckbox.checked) {
-            this.saveVote('optionOne');
-        } else if ( !optionOneCheckbox.checked && optionTwoCheckbox.checked) {
-            this.saveVote('optionTwo');
-        }
+      if (optionOneCheckbox.checked && optionTwoCheckbox.checked) {
+        Swal.fire({
+            title: 'You can choose only one answer.',
+            icon: 'warning',
+            iconColor: '#d3281c'
+        });
+      } else if ( !optionOneCheckbox.checked && !optionTwoCheckbox.checked) {
+        Swal.fire({
+            title: 'You must choose one answer and check it.',
+            icon: 'warning',
+            iconColor: '#d3281c'
+        });
+      } else if ( optionOneCheckbox.checked && !optionTwoCheckbox.checked) {
+        this.saveVote('optionOne');
+      } else if ( !optionOneCheckbox.checked && optionTwoCheckbox.checked) {
+        this.saveVote('optionTwo');
+      }
     }
 
     //saves the vote
@@ -125,22 +123,22 @@ class UnAnsweredQuestion extends React.Component {
     render () {
         const question = this.props.questions[this.props.currentQuestion];
         return(
-            <UnAnsweredQForm onSubmit={this.validateVote}>
-                <InsideContainer>
-                    <Title>Would you rather ... </Title>
-                    <AnswerOption>
-                      <input id="optionOne" type="checkbox" name="firstAnswerOption" value={question.optionOne.text}></input>
-                      <label htmlFor="optionOne">{question.optionOne.text}</label>
-                    </AnswerOption>
-                    <Connector> OR </Connector>
-                    <AnswerOption>
-                      <input id="optionTwo" type="checkbox" name="secondAnswerOption" value={question.optionTwo.text}></input>
-                      <label htmlFor="optionTwo">{question.optionTwo.text}?</label>
-                    </AnswerOption>
-                </InsideContainer>
-                <InfoText>&#42; Only one answer is accepted</InfoText>
-                <Button type="submit">Save</Button>
-            </UnAnsweredQForm>
+          <UnAnsweredQForm onSubmit={this.validateVote}>
+              <InsideContainer>
+                  <Title>Would you rather ... </Title>
+                  <AnswerOption>
+                    <input id="optionOne" type="checkbox" name="firstAnswerOption" value={question.optionOne.text}></input>
+                    <label htmlFor="optionOne">{question.optionOne.text}</label>
+                  </AnswerOption>
+                  <Connector> OR </Connector>
+                  <AnswerOption>
+                    <input id="optionTwo" type="checkbox" name="secondAnswerOption" value={question.optionTwo.text}></input>
+                    <label htmlFor="optionTwo">{question.optionTwo.text}?</label>
+                  </AnswerOption>
+              </InsideContainer>
+              <InfoText>&#42; Only one answer is accepted</InfoText>
+              <Button type="submit">Save</Button>
+          </UnAnsweredQForm>
         )
         }
 };

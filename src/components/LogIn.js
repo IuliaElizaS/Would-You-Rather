@@ -10,6 +10,7 @@ const Container = styled.div `
   margin: auto;
   padding-top: 5%;
   font-size: 1em;
+  text-align: center;
   @media screen and (min-width: 760px){
     font-size: 1.1em;
   };
@@ -84,7 +85,6 @@ const Button = styled.button `
   border: 0.15em solid #005753;
   background-color: #d3281c;
   border-radius: 5px;
-  text-align: center;
   color: #FFF;
   padding: 0.25em;
   margin: 1em auto;
@@ -101,7 +101,6 @@ const Button = styled.button `
     width: 30%;
   };
 `
-
 class LogIn extends React.Component {
 
   constructor(props) {
@@ -144,9 +143,8 @@ class LogIn extends React.Component {
       Swal.fire({
         title: 'Please select your name.',
         icon: 'warning',
-        iconColor: '#d3281c' ,
-        confirmButtonColor: '#007FFF' ,
-        timer: 2500,
+        iconColor: '#d3281c',
+        confirmButtonColor: '#007FFF'
       });
     }
   }

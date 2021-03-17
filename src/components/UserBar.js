@@ -11,6 +11,7 @@ import styled from 'styled-components';
 const LoggedInUserBar = styled.div `
   height: 3em;
   margin: auto;
+  text-align: center;
   @media screen and (min-width: 760px){
     margin: auto 0 auto auto;
   };
@@ -81,13 +82,11 @@ class UserBar extends React.Component {
       const userAvatar = avatarURLs[userId];
 
       return (
-        <withRouter>
-          <LoggedInUserBar>
-            <Image src={userAvatar}  alt="userAvatar"/>
-            <Name>{user.name}</Name>
-            <Button onClick={this.logOut}>Log out</Button>
-          </LoggedInUserBar>
-        </withRouter>
+        <LoggedInUserBar>
+          <Image src={userAvatar}  alt="userAvatar"/>
+          <Name>{user.name}</Name>
+          <Button onClick={this.logOut}>Log out</Button>
+        </LoggedInUserBar>
       )
     }else{
       return(null);
